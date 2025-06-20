@@ -1,0 +1,241 @@
+1. 
+
+50 logs based on network activity, Linux server logs, and user behavior in an enterprise environment.
+
+LOGS:
+May 19 06:00:12 sshd[5873]: Accepted password for alice from 192.168.1.15 port 22 ssh2
+May 19 06:02:01 sudo: user bob : TTY=pts/2 ; PWD=/home/bob ; USER=root ; COMMAND=/usr/bin/apt update
+May 19 06:04:18 sshd[5901]: Failed password for invalid user james from 198.51.100.23 port 22 ssh2
+May 19 06:05:22 sshd[5924]: Accepted password for emily from 192.168.1.17 port 22 ssh2
+May 19 06:07:45 sudo: user emily : TTY=pts/1 ; PWD=/home/emily ; USER=root ; COMMAND=/bin/bash
+May 19 06:10:11 apache2[1342]: [notice] Apache/2.4.7 (Ubuntu) configured -- resuming normal operations
+May 19 06:12:04 sshd[5975]: Failed password for invalid user root from 203.0.113.45 port 22 ssh2
+May 19 06:14:00 mysql[2340]: [Warning] Access denied for user 'admin'@'192.168.1.10' (using password: YES)
+May 19 06:15:30 sshd[5992]: Accepted password for alice from 192.168.1.16 port 22 ssh2
+May 19 06:18:02 sudo: user alice : TTY=pts/1 ; PWD=/home/alice ; USER=root ; COMMAND=/usr/bin/apt upgrade
+May 19 06:20:17 sshd[6011]: Failed password for invalid user bob from 203.0.113.25 port 22 ssh2
+May 19 06:23:12 sshd[6034]: Accepted password for john from 192.168.1.14 port 22 ssh2
+May 19 06:24:43 firewall[1245]: Deny access to port 3389 from 198.51.100.5 (External IP)
+May 19 06:26:17 apache2[1378]: [error] [client 203.0.113.5] File does not exist: /var/www/html/admin.php
+May 19 06:28:10 sshd[6054]: Failed password for invalid user root from 192.168.1.22 port 22 ssh2
+May 19 06:30:11 sudo: user bob : TTY=pts/3 ; PWD=/home/bob ; USER=root ; COMMAND=/usr/bin/apt-get install vim
+May 19 06:32:14 mysql[2371]: [Warning] Aborted connection 101 to db: 'company_db' user: 'admin' host: '192.168.1.10' (Got an error reading communication packets)
+May 19 06:35:56 sshd[6099]: Accepted password for james from 192.168.1.13 port 22 ssh2
+May 19 06:36:44 firewall[1255]: Deny access to port 22 from 198.51.100.9 (External IP)
+May 19 06:38:01 sshd[6112]: Failed password for root from 192.168.1.100 port 22 ssh2
+May 19 06:40:01 apache2[1392]: [warn] [client 203.0.113.6] Invalid URI /admin/login.php
+May 19 06:42:24 sshd[6125]: Accepted password for emily from 192.168.1.20 port 22 ssh2
+May 19 06:44:01 sshd[6142]: Failed password for invalid user dave from 203.0.113.10 port 22 ssh2
+May 19 06:45:30 sudo: user emily : TTY=pts/4 ; PWD=/home/emily ; USER=root ; COMMAND=/bin/ls /var/log
+May 19 06:47:30 firewall[1289]: Deny access to port 3306 from 198.51.100.25 (External IP)
+May 19 06:50:01 mysql[2389]: [Warning] Access denied for user 'admin'@'192.168.1.22' (using password: NO)
+May 19 06:52:04 sshd[6165]: Failed password for invalid user admin from 198.51.100.11 port 22 ssh2
+May 19 06:54:00 apache2[1421]: [error] [client 203.0.113.8] File does not exist: /var/www/html/index.php
+May 19 06:56:01 sshd[6184]: Accepted password for bob from 192.168.1.19 port 22 ssh2
+May 19 06:58:30 firewall[1293]: Deny access to port 80 from 203.0.113.22 (External IP)
+May 19 07:00:01 sshd[6200]: Failed password for invalid user alice from 192.168.1.35 port 22 ssh2
+May 19 07:02:04 mysql[2407]: [Warning] Aborted connection 102 to db: 'company_db' user: 'admin' host: '192.168.1.18' (Got an error reading communication packets)
+May 19 07:04:30 sshd[6222]: Accepted password for dave from 192.168.1.30 port 22 ssh2
+May 19 07:06:10 apache2[1450]: [warn] [client 203.0.113.7] Invalid request /admin/resetpassword.php
+May 19 07:08:14 firewall[1301]: Deny access to port 443 from 198.51.100.14 (External IP)
+May 19 07:10:30 sudo: user john : TTY=pts/1 ; PWD=/home/john ; USER=root ; COMMAND=/bin/rm -rf /var/log/*
+May 19 07:12:14 mysql[2430]: [Warning] Access denied for user 'admin'@'192.168.1.12' (using password: YES)
+May 19 07:15:21 sshd[6240]: Failed password for invalid user dave from 203.0.113.8 port 22 ssh2
+May 19 07:17:01 apache2[1462]: [notice] Apache/2.4.7 (Ubuntu) configured -- resuming normal operations
+May 19 07:20:01 sshd[6260]: Accepted password for emily from 192.168.1.14 port 22 ssh2
+May 19 07:22:12 firewall[1309]: Deny access to port 3306 from 203.0.113.20 (External IP)
+May 19 07:24:30 mysql[2445]: [Warning] Access denied for user 'admin'@'192.168.1.25' (using password: NO)
+May 19 07:26:15 sudo: user alice : TTY=pts/2 ; PWD=/home/alice ; USER=root ; COMMAND=/usr/bin/apt-get install curl
+May 19 07:28:20 sshd[6285]: Failed password for invalid user james from 192.168.1.40 port 22 ssh2
+May 19 07:30:01 mysql[2450]: [Warning] Aborted connection 103 to db: 'company_db' user: 'admin' host: '192.168.1.20' (Got an error reading communication packets)
+May 19 07:32:42 sshd[6300]: Accepted password for bob from 192.168.1.33 port 22 ssh2
+May 19 07:34:15 firewall[1314]: Deny access to port 22 from 198.51.100.13 (External IP)
+May 19 07:36:25 sudo: user bob : TTY=pts/1 ; PWD=/home/bob ; USER=root ; COMMAND=/bin/cat /etc/passwd
+May 19 07:38:10 sshd[6314]: Failed password for invalid user admin from 192.168.1.45 port 22 ssh2
+May 19 07:40:30 apache2[1475]: [error] [client 198.51.100.8] File does not exist: /var/www/html/admin/login.php
+
+ANALYSIS:
+sshd6011 - suspicious because of invalid user trying to log in
+disgruntled employee ?
+
+apache2[1378] external IP 203.0.113.5 tried to access admin file name - suspicious
+
+06:50:01 mysql[2389] admin ssh from external IP=192.168.1.22
+
+I would by this tome categorize in my head possible intrusion from IPs 192.168.1.— and 203.0.113.— ranges since those 2 and their generics try to access admin or ports
+this can totally be normal trafic like others until now but In my opinion it seems suspicious in this short timeframe
+
+06:58:30 firewall[1293] port 80 deny IP=203.0.113.22
+
+07:00:01 ssh[6200] failed password IP=192.168.1.35:22
+
+07:06:10 apache2[1450] IP=203.0.113.7 REQ=password reset
+
+07:08:14 firewall[1301] IP=198.51.100.14:443 deny access
+
+07:10:30 john removed logs -> immediate attention and also try to look back at his behavior
+which IP is he connected with ?
+look out for other person similar behavior like john, if possible call him if company policy doesnt deny it.
+we have log 06:23:12 ssh [6034] accepted password for john from IP=192.168.1.14:22 ssh
+
+I am gonna skip for now unsucessful attempts from mentioned IP ranges and focus on john
+I would give it to another analyst to take care of them -> either monitor those ranges or block them
+
+07:22:12 ssh[6260] I would look out for emily’s behavior sice we have state of caution from all those time stretched attack/resource get trying IP=192.168.1.14:22
+
+Overall I dont see any other lateral movement through network or successful access to priviledged assets etc, for sure there is an adversay trying to access resources but that is now job of other analyst to block and take care of while I myself am looking out for john and possibly alice althorugh i dont have any facts based neferious behavior from her.
+
+
+————————————------------------------------
+.
+
+SOC analyst for a water treatment plant. This plant manages a critical part of the public water supply, and its network and infrastructure are monitored 24/7. Your task is to analyze logs to detect any malicious activity, attempted sabotage, or unauthorized access.
+
+LOGS:
+May 19 08:00:05 scada[1102]: [INFO] SCADA system status: All systems operational.
+May 19 08:05:20 firewall[1201]: Deny access to port 8080 from external IP 203.0.113.10
+May 19 08:07:34 plc[2003]: [INFO] PLC-1 valve operation initiated by operator Sarah
+May 19 08:08:12 scada[1105]: [INFO] SCADA system status: All systems operational.
+May 19 08:10:01 vpn[1503]: User 'alice.doe' successfully authenticated from IP 192.168.1.20
+May 19 08:12:45 workstation[3001]: [INFO] User Sarah logged in from workstation-1
+May 19 08:13:12 firewall[1215]: Allow access to port 443 from internal IP 192.168.1.15
+May 19 08:15:30 scada[1110]: [INFO] SCADA system status: Unauthorized access attempt detected in segment 5.
+May 19 08:16:05 plc[2005]: [WARNING] PLC-2 reported error: Sensor malfunction in Tank 4
+May 19 08:17:00 vpn[1510]: User 'bob.smith' failed authentication from IP 203.0.113.25
+May 19 08:18:20 firewall[1225]: Deny access to port 22 from 198.51.100.10 (unrecognized IP)
+May 19 08:19:30 workstation[3005]: [INFO] User Sarah logged out from workstation-1
+May 19 08:21:00 scada[1120]: [INFO] SCADA system status: All systems operational.
+May 19 08:22:30 plc[2007]: [ERROR] PLC-3 valve malfunction detected in Zone 2
+May 19 08:23:50 firewall[1230]: Deny access to port 53 from IP 203.0.113.50 (External IP)
+May 19 08:24:30 scada[1130]: [INFO] SCADA system status: New user 'emily.jones' logged in.
+May 19 08:25:15 vpn[1520]: User 'john.doe' authenticated successfully from IP 192.168.1.25
+May 19 08:27:45 workstation[3010]: [INFO] User John logged in from workstation-3
+May 19 08:28:05 scada[1140]: [ERROR] Unauthorized access attempt detected in segment 7 (suspect source IP 203.0.113.35)
+May 19 08:29:00 firewall[1240]: Deny access to port 445 from external IP 198.51.100.20
+May 19 08:30:12 plc[2010]: [INFO] PLC-1 sensor readings sent to SCADA system.
+May 19 08:32:10 vpn[1530]: User 'alice.doe' failed authentication from IP 203.0.113.30
+May 19 08:33:30 firewall[1250]: Deny access to port 80 from 198.51.100.25 (External IP)
+May 19 08:35:00 workstation[3020]: [INFO] User Sarah logged in from workstation-2
+May 19 08:36:45 scada[1150]: [WARNING] SCADA system detected irregular valve operation (Zone 1).
+May 19 08:37:30 plc[2015]: [ERROR] PLC-2 reported error: Valve stuck in open position (Tank 3).
+May 19 08:39:10 vpn[1540]: User 'john.doe' authenticated successfully from IP 192.168.1.30
+May 19 08:41:00 scada[1160]: [INFO] SCADA system status: All systems operational.
+May 19 08:42:05 firewall[1265]: Deny access to port 80 from 203.0.113.55 (External IP)
+May 19 08:43:30 workstation[3030]: [INFO] User Emily logged in from workstation-3
+May 19 08:44:00 scada[1170]: [INFO] SCADA system status: Unauthorized access attempt detected in segment 9.
+May 19 08:45:50 plc[2020]: [WARNING] PLC-3 detected irregular pressure drop in Tank 6.
+May 19 08:47:10 vpn[1550]: User 'bob.smith' authenticated successfully from IP 192.168.1.35
+May 19 08:48:00 firewall[1270]: Deny access to port 22 from 203.0.113.60 (Unrecognized external IP)
+May 19 08:49:00 scada[1180]: [INFO] SCADA system status: Unauthorized access attempt detected in segment 3 (suspect IP 203.0.113.40)
+May 19 08:50:30 workstation[3040]: [INFO] User John logged out from workstation-3
+May 19 08:51:05 firewall[1280]: Deny access to port 8080 from IP 198.51.100.30 (External IP)
+May 19 08:52:00 scada[1190]: [INFO] SCADA system status: Unauthorized access attempt detected in segment 8.
+May 19 08:53:40 vpn[1560]: User 'alice.doe' authenticated successfully from IP 192.168.1.40
+May 19 08:54:10 workstation[3050]: [INFO] User Alice logged in from workstation-2
+May 19 08:55:00 scada[1200]: [INFO] SCADA system status: All systems operational.
+May 19 08:56:30 plc[2025]: [ERROR] PLC-1 reported network error when connecting to SCADA system.
+May 19 08:58:10 firewall[1290]: Deny access to port 22 from IP 203.0.113.70 (Unrecognized external IP)
+May 19 08:59:45 vpn[1570]: User 'bob.smith' failed authentication from IP 203.0.113.80
+
+ANALYSIS:
+08:05:20 firewall[1201] external IP 203.0.113.10 trying to connect - suspicious
+
+08:13:12 firewall[1215] allowed acces on port 443 = https for internal IP=192.168.1.15
+question arises who’s node it that ?
+I corelate it with next SCADA unauthorized system attempt which happened just 20 seconds later
+08:15:30 scada[1110]
+08:16:05 plc[2005] issues system error for sensor malfunction in Tank4 this requires immediate attention and contact engineer responsible no just on site but also electrionics/software
+
+08:23:50 firewall[1230] port 53 denied acces IP=203.0.113.50 (external) and similar to one trying to access internal systems from the outside, I would suggest regarding the criticality of the situation to assign an analyst if one is free to block all IPs from that range for at least an 3 hour period
+
+08:28:05 scada[1140] unauthorized acces detected this time also from silimae IP=203.0.113.35
+
+08:32:10 vpn[1530] of alice which was logged in not long time before and this time she is trying to access from 203.0.113.30 -> suspicious IP range
+
+08:36:45 scada[1150] irregular valve
+
+08:42:05 firewall[1265] IP=203.0.113.55:80 suspicious Ip range again trying to connect
+
+08:44:00 scada[1170] unauthorozed acess attempt segment 9
+
+
+—————————————————————
+3.
+
+LOGS:
+10.0.0.1 - - [18/May/2025:10:15:30 +0000] "GET /index.html HTTP/1.1" 200 512
+May 18 10:20:25 server sshd[1452]: Accepted password for user1 from 192.168.1.50 port 22 ssh2
+May 18 10:22:30 server sshd[1498]: Failed password for invalid user admin from 192.168.1.150 port 22 ssh2
+May 18 10:25:40 firewall kernel: ip_tables: Firewall Deny - IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:00 SRC=10.0.0.100 DST=192.168.1.1 LEN=60
+May 18 10:30:05 server audit[1001]: USER_ACCT pid=1453 uid=0 old auid=4294967295 subj==unconfined msg='op=PAM:session_open grantors=pam_unix acct="root" exe="/usr/bin/sudo" hostname=? addr=? terminal=/dev/tty1 res=success'
+May 18 10:35:10 server sudo: root : TTY=tty1 ; PWD=/home/user ; USER=root ; COMMAND=/bin/rm -rf /important_folder
+10.0.0.1 - - [18/May/2025:10:38:45 +0000] "GET /admin HTTP/1.1" 500 1024
+May 18 10:40:02 server sshd[1524]: Accepted password for user2 from 192.168.1.50 port 22 ssh2
+May 18 10:45:10 server kernel: [12345.6789] IN=eth0 OUT= MAC=00:11:22:33:44:55 SRC=192.168.1.120 DST=192.168.1.1 LEN=52 TOS=0x00 PREC=0x00 TTL=64 ID=12345 DF PROTO=TCP SPT=22 DPT=22 WINDOW=29200 RES=0x00 SYN URGP=0
+May 18 10:50:01 server audit[1020]: INODE_DELETE msg='op=unlinkat dir=/home/user file=evil_script.sh' (inode=123456)
+May 18 10:55:20 server apache2[2002]: [error] [client 192.168.1.110] request exceeded the limit (max 1000/sec)
+May 18 10:59:00 server mysql[1583]: Access denied for user 'root'@'192.168.1.100' (using password: YES)
+May 18 11:02:33 server audit[1053]: AVC denied { execmod } for pid=1401 comm="evil_script" path="/tmp/evil_script.sh" dev="tmpfs" ino=112233
+May 18 11:06:50 server audit[1058]: AVC denied { read } for pid=1423 comm="malware_check" name="secret_file.txt" dev="sda1" ino=123456
+May 18 11:10:00 server kernel: iptables: DROP IN=eth0 OUT= MAC=00:11:22:33:44:55 SRC=10.0.0.10 DST=185.34.56.78 LEN=60
+May 18 11:13:15 server wget[1602]: https://malicious-site.com/file.exe (Download initiated)
+May 18 11:18:20 server sudo: root : TTY=tty1 ; PWD=/home/user ; USER=root ; COMMAND=/bin/chmod 777 /important_file
+May 18 11:22:35 server apache2[2102]: [notice] child pid 1054 exit signal Segmentation fault (11)
+May 18 11:25:30 server clamav[1702]: File "evil_file.exe" contains a virus: Trojan.Generic
+May 18 11:30:45 server systemd[1]: systemd-disk-watcher.service: Disk space on /mnt/critical_drive has reached 95%.
+May 18 11:33:00 server systemd[1]: Stopping Apache2 Web Server...
+May 18 11:33:05 server systemd[1]: Starting Apache2 Web Server...
+10.0.0.1 - - [18/May/2025:11:35:40 +0000] "GET /login?username=admin&password=' OR 1=1-- HTTP/1.1" 400 128
+May 18 11:40:15 server syslog[1221]: High CPU usage detected: PID 1500 (malware_process) using 95% CPU
+May 18 11:45:02 server named[1550]: query: malicious-domain.com IN A + (192.168.1.1)
+May 18 11:50:20 server cron[1556]: (user) ERROR: failed to run script '/home/user/malicious_script.sh'
+May 18 11:55:00 server auth[1624]: user1 logged in from 192.168.1.120 using sudo
+May 18 11:59:15 server passwd[1457]: user3: password changed
+May 18 12:00:30 server scp[1750]: user2@192.168.1.200: /home/user2/file.txt to /tmp/transfer/
+May 18 12:05:05 server audit[1180]: AVC denied { open } for pid=1543 comm="bad_actor" name="important_file.txt" dev="sda1" ino=654321
+May 18 12:10:45 server audit[1203]: PATH=/home/user2 command="/bin/rm -rf /home/user2/sensitive_folder"
+
+
+ANALYSIS:
+
+facts:
+upon closer examination of logs past 10:20:25 which by itself couldn’t be classified as suspicious or mailicous I’ve came to conclusion to classify it as attackers first entry point into server with IP=192.168.1.50:22 as user1
+next exact fact is that from same IP=192.168.1.50:22 logged in user2 at 10:40:02
+
+at 10:55:20 server apache2[2002] can be seen as brute force attack aganst the server - its request exceeded 1000/second which is not feasable for human being and this IP should be restricted from accessing our server at least for 3 hours
+
+cannot attribute:
+- there is no exact clue that attacker from Ip= 192.168.1.50 is doing these malicious steps on our servers
+- it would need more forensic examination so I would immediately send it to L2
+- it might be corelated because it is happening at the same time but without proper validation I cannot connect those 2 events together, there might have been attacker in the network before and is now executing those malicious steps or it might also be that attacker is trying to decieve defenders by lounching multiple attacks at once:
+1. brute forcing attempts
+2. accessing accounts - user1 and user2 while trying lateral movement through network
+3. while lounching attack pre-ready from the inside
+- this might indicate sophisticated attacker and requires immediate attention
+
+at 10:35:10 we have server root acces removing forcefully with /bin/rm -rf important_folder which should raise flags in analyst
+
+10:38:45 someone issued a get request for admin at server with which server responded with code 500 = internal server error
+
+10:45:10 server kernel issues log on ethernet interface 0 source address 192.168.1.120 allowed 192.168.1.1 to have acess on port 22 (destination and source port)
+
+audit log on server issued at 10:50:01 that looks like deletes file which it fould suspicious = eví_script.sh
+
+my_sql server 10:59:00 denied ssh access to root@192.168.1.100 user, from this behavior I would suggest that it is the same attacker because he seems to operate with different IP addresses and more fronts but with same tactic -> ssh access as initial access
+
+11:02:33
+and
+11:06:50
+- audit server denied access to run evil_script and malware_check denied secret_file.txt
+- this requires further investigation about how those files got there
+
+11:13:15 attacker tried to download from https[:]/malicious-site.com/file.exe
+5 minutes after that server reports root command of suer issuing execute permissions to important_file with chmod 777 at time: 11:18:20
+
+11:25:30 we have log for evil_file.exe which catched signature of file and reported it as Trojan
+
+at 11:30:45 server started to have problems with disk usage and required restart - this need to be investigated in order to gain full knowledge
+
+at 11:35:40 GET request was issued for admin & password with OR 1=1 which resembles SQL injection attack
+
+Odoslané z iPhonu
