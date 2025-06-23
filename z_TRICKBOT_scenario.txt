@@ -1,0 +1,52 @@
+TRICKBOT scenario
+
+initial access via malspam, payload delivery, command and control (C2) communications, lateral movement, credential theft, and persistence.
+
+LOGS:
+May 17 08:01:12 workstation outlook[2231]: User opened email with subject "Invoice Attached"
+May 17 08:01:15 workstation outlook[2231]: Attachment invoice.zip downloaded to C:\Users\user\Downloads
+May 17 08:01:18 workstation explorer[2232]: invoice.zip extracted to invoice.doc
+May 17 08:01:22 workstation winword[2233]: invoice.doc opened with macros enabled
+May 17 08:01:25 workstation powershell[2235]: Executed base64-encoded script from invoice.doc
+May 17 08:01:30 workstation powershell[2235]: Downloaded payload from hxxp://trickbotpayload[.]com/gtag32.exe
+May 17 08:01:33 workstation security[2236]: New process created: gtag32.exe (PID 1044)
+May 17 08:01:34 workstation firewall[123]: Outbound connection allowed: 192.168.1.5 -> 185.225.69.72:443 (TLS)
+May 17 08:01:36 workstation dns[2250]: Resolved trickbotc2[.]net to 185.225.69.72
+May 17 08:01:39 workstation httpclient[2251]: POST /guidcheck to trickbotc2[.]net (200 OK)
+May 17 08:01:45 workstation httpclient[2251]: GET /modules/systeminfo.dll from trickbotc2[.]net (200 OK)
+May 17 08:01:48 workstation system[2252]: Loaded module systeminfo.dll (Trickbot plugin)
+May 17 08:02:03 workstation lsass[2253]: Suspicious memory access attempt blocked by EDR (possible credential dump)
+May 17 08:02:20 workstation wmi[2254]: Lateral movement attempt via WMI to 192.168.1.8
+May 17 08:02:25 workstation smbd[2255]: Connection from 192.168.1.5 using anonymous credentials
+May 17 08:02:28 workstation sc[2256]: Remote service 'winhost.exe' created on 192.168.1.8
+May 17 08:02:31 server audit[1451]: New user added: svc_sync (created by process winhost.exe)
+May 17 08:02:40 server audit[1452]: Scheduled task registered: UpdateTask at 02:00 daily
+May 17 08:02:45 workstation curl[2257]: Exfiltration attempt: POST /logs.zip to 185.225.69.72
+May 17 08:02:50 server clamav[1470]: Detected Trickbot variant in C:\Windows\Temp\winhost.exe
+May 17 08:03:00 server syslog[1471]: Alert: Unauthorized outbound connection from 192.168.1.8 to 185.225.69.72
+May 17 08:03:15 server sudo: admin : TTY=pts/1 ; PWD=/root ; USER=root ; COMMAND=/bin/rm -rf /tmp/winhost.exe
+May 17 08:03:25 server sshd[1475]: Failed password for invalid user guest from 192.168.1.5 port 44621 ssh2
+May 17 08:03:40 firewall kernel: iptables DROP - SRC=192.168.1.5 DST=185.225.69.72 PROTO=TCP DPT=443
+May 17 08:04:00 workstation schtasks[2258]: Removed task 'UpdateTask'
+May 17 08:04:10 workstation regedit[2259]: Deleted registry key HKCU\Software\Microsoft\Windows\CurrentVersion\Run\gtag32
+May 17 08:04:25 workstation cleanup[2260]: Deleted file C:\Users\user\AppData\Roaming\gtag32.exe
+May 17 08:04:30 server syslog[1480]: Incident report sent to SOC - suspected Trickbot infection on host 192.168.1.5
+
+ANALYSIS:
+
+exercise 3 - trickbot infection
+
+all it took for workstation to be infected was 3 minutes
+
+08:01:12 application outlook - user openned email with “Invoice Attached” -> downloaded invoice.zip to C:\Users\user\Downloads -> extracted to invoice.doc and oppened with macros enabled (runs visual basic where can be embedded script, code or someother malicious content) needs further examination -> base64 encoded script (usually used for obfuscation of malicious code) -> powershell downloads from hxxp://trickbotpayload[.]com/gtag32.exe (looks like C2 server) -> new process created gtag32.exe -> firewall policy changed that allowed outbound connection through TLS 185.225.69.72:443 -> DNS resolved trickbot2[.]net to 185.225.69.72 -> http client posts /guidcheck to malicious Server (this look like some validation that endpoint was succesfully compromised -> after that we have successful GET request for systeminfo.dll file -> systemunfo.dll is run and seems to be disguisted credential dumping tool -> WMI lateral movement from IP=192.168.1.8 (WMI movement means movement through system by network)
+
+connection from 192.168.1.5 using anonymous credentials should raise alarms also but there is not enough data to stop it just by this information
+
+svc_sync newly created user by process winhost.exe (which is malicious makes this user malicious also -> UpdateTask at 02:00 a clock can be legetimate but in this scenario it look more like attacker might be trying to create fake update with root access and push it onto servers to hide his tracks -> curl[2257] posting logs.zip to IP=185.225.69.72 is absolute redflag because this might be exfiltration of data, also this IP is linked to TrickBot even in those logs
+
+08:03:00 attacker seems to be covering tracks and syslog provided us with IP=192.168.1.8 connected to 185.225.69.72 without authorization while at:
+08:03:15 we see root access account deleting winhost.exe file from system
+08:03:25 failed password from IP=192.168.1.5 using ssh and at:
+08:03:40 firewall blocks this IP while also blocking external IP which might be and also is TrickBot C2 server (IP=185.225.69.72)
+08:04:00 manual or automated EDR which also catched gtag32.exe as possible signs of malicious
+08:04:30 incident is sent to SOC with tag as suspectwd TrickBot infection
