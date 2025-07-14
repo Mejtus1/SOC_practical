@@ -1,0 +1,223 @@
+1. Exercise 
+
+192.168.1.101 - - [19/May/2025:12:01:22 +0000] "GET /index.html HTTP/1.1" 200 2048 "-" "Mozilla/5.0"
+192.168.1.102 - - [19/May/2025:12:01:23 +0000] "GET /about.html HTTP/1.1" 200 1956 "-" "Mozilla/5.0"
+192.168.1.103 - - [19/May/2025:12:01:24 +0000] "GET /contact.html HTTP/1.1" 200 1982 "-" "Mozilla/5.0"
+192.168.1.104 - - [19/May/2025:12:01:25 +0000] "GET /style.css HTTP/1.1" 200 1452 "-" "Mozilla/5.0"
+192.168.1.105 - - [19/May/2025:12:01:25 +0000] "GET /script.js HTTP/1.1" 200 987 "-" "Mozilla/5.0"
+10.0.0.15 - - [19/May/2025:12:01:26 +0000] "GET / HTTP/1.1" 200 2087 "-" "curl/7.68.0"
+192.168.1.101 - - [19/May/2025:12:01:26 +0000] "GET /images/logo.png HTTP/1.1" 200 23456 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:27 +0000] "POST /login.php HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+192.168.1.106 - - [19/May/2025:12:01:28 +0000] "GET /blog.html HTTP/1.1" 200 2041 "-" "Mozilla/5.0"
+198.51.100.2 - - [19/May/2025:12:01:29 +0000] "GET /admin HTTP/1.1" 403 210 "-" "sqlmap/1.5.2"                
+192.168.1.107 - - [19/May/2025:12:01:30 +0000] "GET /products.html HTTP/1.1" 200 2134 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:32 +0000] "POST /login.php HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:33 +0000] "POST /login.php HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+192.168.1.108 - - [19/May/2025:12:01:34 +0000] "GET /style.css HTTP/1.1" 200 1452 "-" "Mozilla/5.0"
+192.168.1.109 - - [19/May/2025:12:01:35 +0000] "GET /script.js HTTP/1.1" 200 987 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:36 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+198.51.100.2 - - [19/May/2025:12:01:36 +0000] "GET /phpmyadmin/ HTTP/1.1" 404 162 "-" "sqlmap/1.5.2"
+10.0.0.23 - - [19/May/2025:12:01:37 +0000] "GET /?id=1%20OR%201=1 HTTP/1.1" 200 1900 "-" "Mozilla/5.0"
+192.168.1.110 - - [19/May/2025:12:01:38 +0000] "GET /images/banner.jpg HTTP/1.1" 200 33256 "-" "Mozilla/5.0"
+192.168.1.111 - - [19/May/2025:12:01:39 +0000] "GET /faq.html HTTP/1.1" 200 1880 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:40 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+192.168.1.112 - - [19/May/2025:12:01:40 +0000] "GET /contact.html HTTP/1.1" 200 1982 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:41 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+192.168.1.113 - - [19/May/2025:12:01:42 +0000] "GET /home.html HTTP/1.1" 200 1982 "-" "Mozilla/5.0"
+198.51.100.2 - - [19/May/2025:12:01:42 +0000] "GET /server-status HTTP/1.1" 403 210 "-" "sqlmap/1.5.2"
+203.0.113.5 - - [19/May/2025:12:01:43 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:44 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+10.0.0.15 - - [19/May/2025:12:01:45 +0000] "GET /robots.txt HTTP/1.1" 200 64 "-" "curl/7.68.0"
+192.168.1.114 - - [19/May/2025:12:01:46 +0000] "GET /index.html HTTP/1.1" 200 2048 "-" "Mozilla/5.0"
+198.51.100.2 - - [19/May/2025:12:01:47 +0000] "GET /.env HTTP/1.1" 403 210 "-" "sqlmap/1.5.2"
+192.168.1.115 - - [19/May/2025:12:01:48 +0000] "GET /about.html HTTP/1.1" 200 1956 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:49 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:50 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+192.168.1.116 - - [19/May/2025:12:01:51 +0000] "GET /blog.html HTTP/1.1" 200 2041 "-" "Mozilla/5.0"
+192.168.1.117 - - [19/May/2025:12:01:52 +0000] "GET /style.css HTTP/1.1" 200 1452 "-" "Mozilla/5.0"
+198.51.100.2 - - [19/May/2025:12:01:53 +0000] "GET /config.php.bak HTTP/1.1" 403 210 "-" "sqlmap/1.5.2"
+192.168.1.118 - - [19/May/2025:12:01:54 +0000] "GET /index.html HTTP/1.1" 200 2048 "-" "Mozilla/5.0"
+192.168.1.119 - - [19/May/2025:12:01:55 +0000] "GET /images/logo.png HTTP/1.1" 200 23456 "-" "Mozilla/5.0"
+192.168.1.120 - - [19/May/2025:12:01:56 +0000] "GET /home.html HTTP/1.1" 200 1982 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:01:57 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+10.0.0.23 - - [19/May/2025:12:01:58 +0000] "GET /?q=../../../../etc/passwd HTTP/1.1" 200 2048 "-" "Mozilla/5.0"
+192.168.1.121 - - [19/May/2025:12:01:59 +0000] "GET /products.html HTTP/1.1" 200 2134 "-" "Mozilla/5.0"
+192.168.1.122 - - [19/May/2025:12:02:00 +0000] "GET /contact.html HTTP/1.1" 200 1982 "-" "Mozilla/5.0"
+203.0.113.5 - - [19/May/2025:12:02:01 +0000] "POST /login.php HTTP/1.1" 401 334 "-" "Mozilla/5.0"
+192.168.1.123 - - [19/May/2025:12:02:02 +0000] "GET /faq.html HTTP/1.1" 200 1880 "-" "Mozilla/5.0"
+198.51.100.2 - - [19/May/2025:12:02:03 +0000] "GET /admin/ HTTP/1.1" 403 210 "-" "sqlmap/1.5.2"
+192.168.1.124 - - [19/May/2025:12:02:04 +0000] "GET /script.js HTTP/1.1" 200 987 "-" "Mozilla/5.0"
+192.168.1.125 - - [19/May/2025:12:02:05 +0000] "GET /images/banner.jpg HTTP/1.1" 200 33256 "-" "Mozilla/5.0"
+
+Analysis: 
+
+192[.]168[.]1[.]101 - 105, 12:01:22 - 12:01:25 
+first 5 logs look like someone scoping out our webserver file structure since it is happening at second intervals of GET requests coming from range of internal IPs 
+
+10[.]0[.]0[.]15 - 12:01:26
+external IP using curl command, can be unrelated but strange althrough I would need more information in order to make conclusion out of this one 
+
+198.51.100.2 - 12:01:29 
+GET /admin - sqlmap/1.5.2
+there is 403 HTTP code forbidden from mentioned IP but there are no other signs of this IP being corelated to any other activities
+
+203.0.113.5 - - [19/May/2025:12:01:32  
+203.0.113.5 - - [19/May/2025:12:01:33 
+203.0.113.5 - - [19/May/2025:12:01:36
+203.0.113.5 - - [19/May/2025:12:01:40
+203.0.113.5 - - [19/May/2025:12:01:41
+203.0.113.5 - - [19/May/2025:12:01:43
+203.0.113.5 - - [19/May/2025:12:01:44
+203.0.113.5 - - [19/May/2025:12:01:49
+203.0.113.5 - - [19/May/2025:12:01:50
+203.0.113.5 - - [19/May/2025:12:01:57
+203.0.113.5 - - [19/May/2025:12:02:01
+POST /login.php 
+- there is coming traffic from IP = 203[.]0[.]113[.]5 which is trying to input credentials into login.php service on our server
+- I would advise looking into it but it gives signs - even more in this situation like attacker trying to brute force his way into login portal 
+- i would advise blocking the IP for certain time
+- the server is responding with code 401 = meaning unauthorized so input credentials are wrong 
+
+192.168.1.101 - - [19/May/2025:12:01:26
+192.168.1.106 - - [19/May/2025:12:01:28
+192.168.1.107 - - [19/May/2025:12:01:30
+192.168.1.108 - - [19/May/2025:12:01:34
+192.168.1.109 - - [19/May/2025:12:01:35
+192.168.1.110 - - [19/May/2025:12:01:38
+192.168.1.111 - - [19/May/2025:12:01:39
+192.168.1.112 - - [19/May/2025:12:01:40
+192.168.1.113 - - [19/May/2025:12:01:42
+192.168.1.114 - - [19/May/2025:12:01:46
+192.168.1.115 - - [19/May/2025:12:01:48
+192.168.1.116 - - [19/May/2025:12:01:51
+192.168.1.117 - - [19/May/2025:12:01:52
+192.168.1.118 - - [19/May/2025:12:01:54
+192.168.1.119 - - [19/May/2025:12:01:55
+192.168.1.120 - - [19/May/2025:12:01:56
+192.168.1.121 - - [19/May/2025:12:01:59
+192.168.1.122 - - [19/May/2025:12:02:00
+192.168.1.123 - - [19/May/2025:12:02:02
+192.168.1.124 - - [19/May/2025:12:02:04
+192.168.1.125 - - [19/May/2025:12:02:05
+all logs from this source are showing us mapping activity of files on our webserver in my opinion, they are actively reocurring one after another with IP ranging just adding together by one 
+
+
+10.0.0.15 - - [19/May/2025:12:01:26 - curl
+10.0.0.23 - - [19/May/2025:12:01:37 
+10.0.0.15 - - [19/May/2025:12:01:45 - robots.txt 
+10.0.0.23 - - [19/May/2025:12:01:58 - passwd directory access 
+- last we have IP range in 10s which is issuing CURL commands, looking information in robots file which is only used for web scrapers or access to passwd directory which has files storing passwords
+
+- final verdict is immediate remediation on terms of blocking those IP ranges and looking out for possible intrusion into Webserver / strange patters of possible stolen / breached accounts 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+2. Exercise 
+
+192.168.1.45 - - [18/May/2025:14:22:15 +0000] "GET /index.html HTTP/1.1" 200 5320 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+192.168.1.45 - - [18/May/2025:14:22:15 +0000] "GET /images/logo.png HTTP/1.1" 200 2420 "http://energycorp.com/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+10.1.2.33 - - [18/May/2025:14:22:17 +0000] "GET /about-us HTTP/1.1" 200 3210 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+198.51.100.23 - - [18/May/2025:14:22:17 +0000] "GET /css/styles.css HTTP/1.1" 200 1212 "http://energycorp.com/index.html" "Googlebot/2.1 (+http://www.google.com/bot.html)"
+172.16.45.19 - - [18/May/2025:14:22:18 +0000] "GET /login HTTP/1.1" 200 876 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"
+172.16.45.19 - - [18/May/2025:14:22:19 +0000] "POST /login HTTP/1.1" 302 680 "http://energycorp.com/login" "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"
+172.16.45.19 - - [18/May/2025:14:22:21 +0000] "GET /dashboard HTTP/1.1" 200 5420 "http://energycorp.com/login" "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"
+203.0.113.77 - - [18/May/2025:14:22:22 +0000] "GET /api/status HTTP/1.1" 200 1240 "-" "curl/7.68.0"                         ******************
+198.51.100.23 - - [18/May/2025:14:22:25 +0000] "GET /robots.txt HTTP/1.1" 200 68 "-" "Bingbot/2.0 (+http://www.bing.com/bingbot.htm)"
+10.1.2.33 - - [18/May/2025:14:22:27 +0000] "GET /services HTTP/1.1" 200 4501 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+172.16.45.19 - - [18/May/2025:14:22:30 +0000] "GET /admin HTTP/1.1" 403 292 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"
+203.0.113.88 - - [18/May/2025:14:22:31 +0000] "GET /backup.zip HTTP/1.1" 404 512 "-" "Wget/1.20.3 (linux-gnu)"                     ***********************
+203.0.113.88 - - [18/May/2025:14:22:32 +0000] "GET /config.bak HTTP/1.1" 404 512 "-" "Wget/1.20.3 (linux-gnu)"                     ***********************
+192.0.2.55 - - [18/May/2025:14:22:33 +0000] "GET /blog/2024/12/security-best-practices HTTP/1.1" 200 2800 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+192.0.2.55 - - [18/May/2025:14:22:34 +0000] "GET /images/security_chart.png HTTP/1.1" 200 1987 "http://energycorp.com/blog/2024/12/security-best-practices" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+45.33.45.22 - - [18/May/2025:14:22:36 +0000] "GET /index.html HTTP/1.1" 200 5320 "-" "sqlmap/1.5.2#stable"			   **************** sqlmap
+45.33.45.22 - - [18/May/2025:14:22:37 +0000] "GET /products?id=1' OR '1'='1 HTTP/1.1" 200 5320 "-" "sqlmap/1.5.2#stable"           **************** sqlmap 
+192.0.2.10 - - [18/May/2025:14:22:39 +0000] "GET /news HTTP/1.1" 200 2740 "-" "Mozilla/5.0 (Linux; Android 10)"
+203.0.113.88 - - [18/May/2025:14:22:42 +0000] "GET /phpmyadmin HTTP/1.1" 404 512 "-" "Mozilla/5.0"                           ***************** same ip 203
+192.168.1.45 - - [18/May/2025:14:22:45 +0000] "GET /contact HTTP/1.1" 200 2980 "-" "Mozilla/5.0"
+203.0.113.88 - - [18/May/2025:14:22:47 +0000] "GET /wp-login.php HTTP/1.1" 404 520 "-" "Mozilla/5.0"                         *****************
+45.33.45.22 - - [18/May/2025:14:22:50 +0000] "GET /search.php?q=1%27%20OR%20%271%27=%271 HTTP/1.1" 200 3200 "-" "sqlmap/1.5.2#stable"  ******* sqlmap 
+10.1.2.33 - - [18/May/2025:14:22:53 +0000] "GET /careers HTTP/1.1" 200 3320 "-" "Mozilla/5.0" 
+198.51.100.44 - - [18/May/2025:14:22:55 +0000] "GET /api/internal?debug=true HTTP/1.1" 403 640 "-" "curl/8.0  ****** previously similar IP used robots.txt ??? 
+203.0.113.88 - - [18/May/2025:14:22:57 +0000] "GET /server-status HTTP/1.1" 403 520 "-" "Mozilla/5.0"     ******** not malicious by itself but linked to previous iP which had malicous intent 
+172.16.45.19 - - [18/May/2025:14:22:58 +0000] "GET /config HTTP/1.1" 403 290 "-" "Mozilla/5.0"
+203.0.113.77 - - [18/May/2025:14:22:59 +0000] "GET / HTTP/1.1" 200 5320 "-" "curl/7.68.0"                           **************
+192.0.2.88 - - [18/May/2025:14:23:00 +0000] "GET /js/jquery.min.js HTTP/1.1" 200 34760 "-" "Mozilla/5.0"
+45.33.45.22 - - [18/May/2025:14:23:02 +0000] "GET /products?id=5 HTTP/1.1" 200 5300 "-" "sqlmap/1.5.2#stable"          ************
+45.33.45.22 - - [18/May/2025:14:23:05 +0000] "GET /products?id=6'-- HTTP/1.1" 200 5320 "-" "sqlmap/1.5.2#stable"       ************
+192.0.2.55 - - [18/May/2025:14:23:06 +0000] "GET /blog/2025/02/outage-report HTTP/1.1" 200 2875 "-" "Mozilla/5.0"      ******** doesnt have to be malicious but seems like this IP range is mapping file structure of server 
+198.51.100.100 - - [18/May/2025:14:23:09 +0000] "GET /images/maintenance.png HTTP/1.1" 200 2040 "-" "Mozilla/5.0"       ********** this ip range is requesting interesting internal stuff from server, it doesnt have to be malicious but in this context i would be cautious and require investigation 
+203.0.113.88 - - [18/May/2025:14:23:10 +0000] "GET /admin/login.php HTTP/1.1" 404 540 "-" "Mozilla/5.0"               ************
+192.0.2.88 - - [18/May/2025:14:23:12 +0000] "GET /sitemap.xml HTTP/1.1" 200 1820 "-" "Googlebot/2.1 (+http://www.google.com/bot.html)"   ******** doesnt have to be malicious but seems like this IP range is mapping file structure of server 
+203.0.113.77 - - [18/May/2025:14:23:14 +0000] "GET /status HTTP/1.1" 200 1040 "-" "curl/7.68.0"     ************** curl 
+192.0.2.10 - - [18/May/2025:14:23:15 +0000] "GET /outages HTTP/1.1" 200 3150 "-" "Mozilla/5.0"      ******** doesnt have to be malicious but seems like this IP range is mapping file structure of server 
+203.0.113.88 - - [18/May/2025:14:23:18 +0000] "GET /etc/passwd HTTP/1.1" 404 540 "-" "Mozilla/5.0"                   ********* possible attacker 
+203.0.113.88 - - [18/May/2025:14:23:19 +0000] "GET /.env HTTP/1.1" 403 512 "-" "Mozilla/5.0"                         ********* possible attacker
+203.0.113.88 - - [18/May/2025:14:23:20 +0000] "GET /?q=<script>alert(1)</script> HTTP/1.1" 200 520 "-" "Mozilla/5.0" ********* possible attacker
+192.0.2.55 - - [18/May/2025:14:23:23 +0000] "GET /legal/privacy-policy HTTP/1.1" 200 2200 "-" "Mozilla/5.0"
+192.0.2.88 - - [18/May/2025:14:23:24 +0000] "GET /legal/terms-of-service HTTP/1.1" 200 2440 "-" "Mozilla/5.0"
+198.51.100.23 - - [18/May/2025:14:23:26 +0000] "GET /api/ping HTTP/1.1" 200 150 "-" "curl/7.68.0"               ********** this ip range is requesting interesting internal stuff from server, it doesnt have to be malicious but in this context i would be cautious and require investigation + curl
+192.0.2.10 - - [18/May/2025:14:23:29 +0000] "GET /index.html HTTP/1.1" 200 5320 "-" "Mozilla/5.0" 
+203.0.113.88 - - [18/May/2025:14:23:31 +0000] "GET /cgi-bin/test.cgi HTTP/1.1" 404 512 "-" "Mozilla/5.0"         ********* possible attacker
+192.0.2.55 - - [18/May/2025:14:23:34 +0000] "GET /blog/2025/04/energy-summit-recap HTTP/1.1" 200 2805 "-" "Mozilla/5.0"
+198.51.100.23 - - [18/May/2025:14:23:36 +0000] "GET /api/metrics HTTP/1.1" 200 198 "-" "curl/7.68.0"            ********* curl  ********* possible attacker
+45.33.45.22 - - [18/May/2025:14:23:37 +0000] "GET /products?id=7 AND SLEEP(5)-- HTTP/1.1" 200 5320 "-" "sqlmap/1.5.2#stable"  *********sqlmap 
+203.0.113.88 - - [18/May/2025:14:23:39 +0000] "GET /dev/.htpasswd HTTP/1.1" 403 512 "-" "Mozilla/5.0"          ********* possible attacker
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+3. Exercise
+
+1] 08:01:14 DNS Query A suspicious-domain.xyz -> Response: 185.210.225.99
+[2] 08:01:15 TCP 10.0.4.21:50612 -> 185.210.225.99:80 [SYN]
+[3] 08:01:15 TCP 185.210.225.99:80 -> 10.0.4.21:50612 [SYN, ACK]
+[4] 08:01:15 HTTP GET /payload.bin Host: suspicious-domain.xyz User-Agent: curl/7.55
+[5] 08:01:16 HTTP 200 OK Content-Length: 51200 bytes
+[6] 08:01:17 TCP 10.0.4.21:50612 -> 185.210.225.99:80 [FIN, ACK]
+
+[7] 08:01:25 DNS Query A api.winupdate-checker[.]com -> Response: 185.210.225.43
+[8] 08:01:26 TCP 10.0.4.21:49600 -> 185.210.225.43:443 [SYN]
+[9] 08:01:26 TCP 185.210.225.43:443 -> 10.0.4.21:49600 [SYN, ACK]
+[10] 08:01:26 TLS Client Hello - SNI: api.winupdate-checker[.]com
+[11] 08:01:27 TLS Server Hello - Certificate Issuer: Let's Encrypt
+[12] 08:01:28 TCP Encrypted payload (length 4.6KB) sent to 185.210.225.43
+
+[13] 08:01:32 SMB 10.0.4.21 -> 10.0.4.34 Tree Connect Request - Share: \\10.0.4.34\C$
+[14] 08:01:34 SMB NTLMv2 authentication success - user: backup_user
+[15] 08:01:36 SMB Write File: \\10.0.4.34\C$\ProgramData\sysback.ps1
+[16] 08:01:38 SMB Execute: powershell.exe -File C:\ProgramData\sysback.ps1
+
+[17] 08:01:45 DNS Query A data.dl-update-checker[.]com -> Response: 185.210.225.68
+[18] 08:01:46 TCP 10.0.4.34:52110 -> 185.210.225.68:443 [TLS Handshake]
+[19] 08:01:47 TLS POST /upload.zip (Content-Length: 8.3MB)
+
+[20] 08:02:01 DNS Query A dropbox.com -> 162.125.4.1
+[21] 08:02:02 TCP 10.0.4.21:50210 -> 162.125.4.1:443
+[22] 08:02:03 TLS Client Hello - SNI: dropbox.com
+[23] 08:02:04 TLS Large outbound transfer detected (14MB)
+
+ANALYSIS:
+
+[1] query to suspicious domain from DNS
+[2], [3] - TCP exchange with foreign server
+[4], [5] - HTTP GET request of /payload.bin from suspicious domain mentioned in [1] with flag OK - server 200 response
+[6] tcp channel end with [FIN, ACK]
+
+[7] DNS performs lookup for api.winupdate-checker[.]com (malicious site most likely impersonating real site) ( possibly C2 server where previous file /payload.exe is trying to communicate with C2 server for further instructions upon successful entry to the system)
+[8], [9] tcp connection initiated
+[10], [11] TLS encryption initiated for encrypted traffic
+[12] encrypted payload sent to our IP
+
+[13], [14], [15]
+SMB (Server Message Block) network file sharing protocol used by my internal IP=10.0.4.21 to connect to 10.0.4.34 and access what looks like root/administrator priviledges ($ / $C/)
+our machine IP=10.0.4.21 succesfully managed to authenticate to NTLMv2 (NT LAN Manager) = microsofts protocol for authentication of network traffic accessing file resources over the network
+we must assume that attacker either stole credentials, password cracked or other option of backup_user and quarantine this account until further investigation is provided into the user logs and history
+user backup_user is writing into 10.0.4.34\C$\ProgramData\sysback.ps1, needs to be investigated and forwarded to L2 analyst
+[16] through SMB traffic the attacker executed the program he inserted with administrator access (the programm is executed through powershell)
+
+[17], [18], [19] DNS query to ok looking domain but IP behind is the one attacker used for other attacks or persistance on our network
+tls handshake for encryption (couldnt be nothing bat in normal scenario but in this one it is very possible encryption for whatever may come next so it couldnt be red by third party)
+we are making a encrypted POST of /upload.zip file which has 8.3 Mb of data (possible data exfiltration)
+
+[20] - [23]
+query to dropbox (legitimate site DNS name) but IP needs to be checked in case of impersonation
+TCP and TLS handshakes established connection
+encrypted outbound traffic which resonates with previous traffic of [19] where we had POST request to attackers server
+
