@@ -1,0 +1,191 @@
+SOC TRAINING 1 ✅
+
+Entry 1: Firewall Log
+Date/Time: 2025-05-23 13:52:18 UTC
+Source IP: 203.0.113.78
+Source Port: 44321
+Destination IP: 10.1.2.45 (Internal Web Server)
+Destination Port: 80
+Protocol: TCP
+Action: Allowed
+Bytes Transferred: 152
+Country of Origin: Russia
+Note: Repeated connection attempts over the last 10 minutes (approx. 45 connections)
+Your action? (pass, block, investigate, escalate, or other)
+
+You said:
+probably block because russia is high threat country
+Action Taken: Block
+
+Rationale Logged: Repeated inbound connection attempts to an internal web server from a high-risk country (Russia). Although port 80 is commonly used, the volume and pattern indicate potential reconnaissance or probing activity.
+
+
+Log Entry 2: Email Security Gateway Alert
+Date/Time: 2025-05-23 14:04:37 UTC
+Sender: hr@yourcompany-careers.com
+Recipient: jsmith@yourcompany.com
+Subject: "Final Notice: Update Your Payroll Info to Avoid Delay"
+Attachment: payroll_update_form.zip (contains an .exe file)
+SPF: Pass
+DKIM: Pass
+DMARC: Pass
+Message Score: 3.2 (Spam threshold: 5.0)
+Notes: Domain closely resembles official domain (typo: “careers” instead of “career”)
+Your action?
+
+You said:
+sure block phishing with potential malware but needs investigation
+
+Action Taken: Block and Investigate
+Rationale Logged: Email exhibits phishing characteristics—typosquatted domain, urgency in message, ZIP file with executable payload. SPF/DKIM/DMARC checks passed, indicating potential compromise or abuse of a legitimate service. Further investigation needed to determine scope (e.g., who else received similar messages, if the domain is newly registered, etc.).
+
+
+Log Entry 3: Endpoint Detection & Response (EDR) Alert
+Date/Time: 2025-05-23 14:15:22 UTC
+Hostname: WS-0342
+User: sjohnson
+Process: powershell.exe
+Command Line: powershell.exe -ExecutionPolicy Bypass -File \\10.1.2.98\public\scripts\monitor.ps1
+Behavior: Accessed registry keys related to persistence (Run key), attempted outbound connection to 198.51.100.23:8080
+Detection Confidence: High
+Your action?
+
+You said:
+seems to bypass with unknown file, block and investigate or in other case -> of running the file already quarantine
+
+ChatGPT said:
+Action Taken: Quarantine Endpoint, Block Connection, and Investigate
+
+Rationale Logged: Suspicious PowerShell execution with bypass flag and registry persistence activity suggests possible malicious intent. Outbound connection attempt to external IP on non-standard port strengthens the case. Immediate containment (quarantine) prevents lateral movement or data exfiltration. Investigation needed to trace source and assess impact.
+
+
+Log Entry 4: Authentication Log (Windows Security Event)
+Date/Time: 2025-05-23 14:24:08 UTC
+Hostname: DC01
+User Account: admin_support
+Logon Type: 10 (RemoteInteractive - RDP)
+Logon Result: Success
+Source IP: 10.1.5.220
+Notes: After hours access (14:24 UTC = 04:24 local time)
+Work hours for this account: 08:00–18:00 local time
+Your action?
+
+You said:
+hm regarding the after hours I would block it but to be sure I need more information from the IT guy, if there is someone working on some problem later in work etc
+
+Action Taken: Investigate
+
+Rationale Logged: After-hours RDP login using an administrative account raises concern, especially given it falls outside the account's expected working hours. However, not enough context to conclude malicious intent—possible legitimate remote maintenance. Escalate to IT management to verify if the session was authorized before taking further action like blocking or forcing logoff.
+
+
+Log Entry 5: Intrusion Detection System (IDS) Alert
+Date/Time: 2025-05-23 14:30:41 UTC
+Alert Type: Suspicious DNS Query
+Hostname: WS-0189
+User: nwalker
+Queried Domain: x1h2f-dyxz26n.click
+Query Type: A (IPv4 address)
+Classification: Known C2 domain
+Threat Feed Match: Yes (Updated 2025-05-22)
+Action Taken: None (Alert-only)
+Your action?
+
+You said:
+block, known c2 domain and query is gibberish
+
+ChatGPT said:
+Action Taken: Block and Investigate
+
+Rationale Logged: DNS query to a confirmed C2 domain with a randomized/gibberish subdomain structure, indicating potential beaconing from malware. Endpoint should be isolated, and further investigation should assess process origin, user activity, and other connections to this or similar domains.
+
+
+Log Entry 6: Internal System Alert
+Date/Time: 2025-05-23 14:37:16 UTC
+System: SIEM-01
+Alert Type: Data Exfiltration Threshold
+Description: Outbound data transfer from user jthomas@yourcompany.com exceeded 500 MB in the last 10 minutes
+Destination IP: 8.8.8.8
+Protocol: HTTPS
+Normal Baseline: <50 MB/day
+Notes: User is a marketing employee; not known for large outbound traffic
+Your action?
+
+You said:
+doesnt look malicious to me also IP is normal I would investigate
+
+ChatGPT said:
+Action Taken: Investigate
+
+Rationale Logged: While outbound volume is significantly above baseline, destination IP (Google DNS) is not inherently suspicious. Could be miscategorized traffic, sync operations, or software misconfiguration. No immediate evidence of exfiltration, but warrants investigation into traffic contents and process origins before dismissing or escalating.
+
+
+Log Entry 7: Phishing Simulation Tool Result
+Date/Time: 2025-05-23 14:42:03 UTC
+User: lmartinez@yourcompany.com
+Action: Clicked on simulated phishing link
+Payload: Fake login portal for Office 365
+Response: Entered credentials
+Notes: This was part of a scheduled awareness campaign
+Your action?
+
+You said:
+nothing, its part of our campagin, but there needs to be talk eith employee about it and educate him
+
+Action Taken: No security action, User Education Initiated
+
+Rationale Logged: Event confirmed as part of an internal phishing simulation. No security incident occurred, but user entered credentials into a fake login page. Recommend follow-up training or one-on-one awareness session to reinforce best practices and reduce risk of real compromise.
+
+
+Log Entry 8: Firewall Log
+Date/Time: 2025-05-23 14:47:55 UTC
+Source IP: 192.0.2.55
+Destination IP: 10.1.2.10 (Internal Database Server)
+Destination Port: 1433 (MSSQL)
+Protocol: TCP
+Action: Blocked
+Attempt Count: 7 in last minute
+Country of Origin: United States
+Notes: External IP trying to access internal DB port
+Your action?
+
+You said:
+block IP for 3 hours if there is someone legitimage he should use internal vpn
+
+Action Taken: Temporarily Block IP for 3 Hours
+
+Rationale Logged: External IP attempting direct access to internal database port (1433), which is a common vector for exploitation. Country of origin is domestic, but that does not preclude abuse. Temporary block in place; legitimate users should be connecting via internal VPN. Monitor for recurrence or related behavior.
+
+
+Log Entry 9: Application Log
+Date/Time: 2025-05-23 14:52:11 UTC
+System: HRAppServer01
+Event Type: Application Crash
+Process: HRPayrollService.exe
+Error Code: 0xC0000005 (Access Violation)
+User: SYSTEM
+Notes: Crash occurred during scheduled payroll batch job
+No external connections detected at time of failure
+Your action?
+
+You said:
+id probably allow but investigate
+
+ChatGPT said:
+Action Taken: Pass and Investigate
+
+Rationale Logged: Application crash appears internal and isolated, possibly due to a software bug (access violation). No indicators of external interference or compromise. Investigate further with the application team to confirm root cause and prevent recurrence, especially given the business-critical nature of payroll processing.
+
+
+Log Entry 10: Network Monitoring Tool
+Date/Time: 2025-05-23 14:56:42 UTC
+Device: IoT-Camera-12 (Office Camera)
+Alert Type: Unusual Traffic Volume
+Details: Device sent 2.3 GB outbound traffic in the past hour
+Destination: 185.199.108.153
+Port: 443
+Vendor: Unknown
+Notes: Device usually transmits <20 MB/hour
+Your action?
+
+You said:
+there is no way an iot camera can send that much data, investigation !
