@@ -1,0 +1,115 @@
+TLS
+
+Below is a simplified, annotated view of what normal network traffic looks like—especially focusing on:
+
+TCP three-way handshake
+TLS handshake
+Data exchange
+TCP connection termination
+All of it is shown in sequence, as you might see in packet capture (pcap) logs or in Wireshark (abstracted for readability).
+
+1. TCP Three-Way Handshake
+text
+Copy code
+[01] TCP 192.168.1.10:54321 → 93.184.216.34:443 [SYN] # Client initiates connection
+[02] TCP 93.184.216.34:443 → 192.168.1.10:54321 [SYN, ACK] # Server acknowledges and responds
+[03] TCP 192.168.1.10:54321 → 93.184.216.34:443 [ACK] # Client completes handshake
+2. TLS Handshake (Typical)
+text
+Copy code
+[04] TLS Client Hello — SNI: www.example.com
+- Version: TLS 1.2
+- Cipher Suites: TLS_RSA_WITH_AES_128_GCM_SHA256, ...
+- Extensions: Server Name Indication (SNI), Supported Groups, ALPN, etc.
+
+[05] TLS Server Hello
+- Version: TLS 1.2
+- Selected Cipher: TLS_RSA_WITH_AES_128_GCM_SHA256
+- Certificate: Issuer: Let's Encrypt
+- Extensions: ALPN
+
+[06] TLS Certificate (www.example.com)
+[07] TLS Server Key Exchange
+[08] TLS Server Hello Done
+
+[09] TLS Client Key Exchange
+[10] TLS Change Cipher Spec
+[11] TLS Encrypted Handshake Message
+
+[12] TLS Change Cipher Spec (Server)
+[13] TLS Encrypted Handshake Message (Server)
+3. Application Data (Encrypted TLS Traffic)
+text
+Copy code
+[14] TLS Application Data (Encrypted, length: 1.2KB)
+[15] TLS Application Data (Encrypted, length: 2.1KB)
+For HTTPS, the actual HTTP request (e.g., GET /index.html) is encrypted inside these packets.
+
+4. TCP Connection Termination
+text
+Copy code
+[16] TCP 192.168.1.10:54321 → 93.184.216.34:443 [FIN, ACK] # Client initiates close
+[17] TCP 93.184.216.34:443 → 192.168.1.10:54321 [ACK] # Server acknowledges
+[18] TCP 93.184.216.34:443 → 192.168.1.10:54321 [FIN, ACK] # Server closes
+[19] TCP 192.168.1.10:54321 → 93.184.216.34:443 [ACK] # Client confirms
+
+
+
+
+[01] 15:30:10 DNS Query A www.youtube.com -> Response: 142.250.74.206
+
+[02] 15:30:10 TCP 192.168.1.20:53120 -> 142.250.74.206:443 [SYN]
+[03] 15:30:10 TCP 142.250.74.206:443 -> 192.168.1.20:53120 [SYN, ACK]
+[04] 15:30:10 TCP 192.168.1.20:53120 -> 142.250.74.206:443 [ACK]
+
+[05] 15:30:10 TLS Client Hello - SNI: www.youtube.com
+[06] 15:30:10 TLS Server Hello - Certificate: CN=*.youtube.com, Issuer: Google Trust Services
+[07] 15:30:10 TLS Handshake Complete
+
+[08] 15:30:11 TLS Application Data (Encrypted HTTP GET / - Homepage content)
+[09] 15:30:11 TLS Application Data (Encrypted HTTP 200 OK)
+
+[10] 15:30:12 DNS Query A r3---sn-5hne6n7y.googlevideo.com -> Response: 74.125.142.200
+
+[11] 15:30:12 TCP 192.168.1.20:53124 -> 74.125.142.200:443 [SYN]
+[12] 15:30:12 TCP 74.125.142.200:443 -> 192.168.1.20:53124 [SYN, ACK]
+[13] 15:30:12 TCP 192.168.1.20:53124 -> 74.125.142.200:443 [ACK]
+
+[14] 15:30:12 TLS Client Hello - SNI: r3---sn-5hne6n7y.googlevideo.com
+[15] 15:30:12 TLS Server Hello - Certificate: CN=*.googlevideo.com, Issuer: Google Trust Services
+[16] 15:30:12 TLS Handshake Complete
+
+[17] 15:30:13 TLS Application Data (Encrypted HTTP GET /videoplayback?...)
+[18] 15:30:14 TLS Application Data (Encrypted HTTP 206 Partial Content - video stream begins)
+[19] 15:30:15 TLS Application Data (Encrypted - ~1MB chunk of video)
+[20] 15:30:16 TLS Application Data (Encrypted - ~1.2MB chunk of video)
+[21] 15:30:18 TLS Application Data (Encrypted - ~1.4MB chunk of video)
+
+[22] 15:30:20 TCP 192.168.1.20:53124 -> 74.125.142.200:443 [FIN, ACK]
+[23] 15:30:20 TCP 74.125.142.200:443 -> 192.168.1.20:53124 [FIN, ACK]
+[24] 15:30:20 TCP 192.168.1.20:53124 -> 74.125.142.200:443 [ACK]
+
+266 * cisty najom ktory dostanes = cena aby si mal 4.5% costy rocny vynos
+
+
+——————————————————
+NORMAL TLS TRAFFIC using real world example:
+
+[01] 14:42:01 DNS Query A www.wikipedia.org -> Response: 91.198.174.192
+
+[02] 14:42:01 TCP 192.168.1.20:50322 -> 91.198.174.192:443 [SYN]
+[03] 14:42:01 TCP 91.198.174.192:443 -> 192.168.1.20:50322 [SYN, ACK]
+[04] 14:42:01 TCP 192.168.1.20:50322 -> 91.198.174.192:443 [ACK]
+
+[05] 14:42:01 TLS Client Hello - SNI: www.wikipedia.org
+[06] 14:42:01 TLS Server Hello - Certificate: CN=*.wikipedia.org, Issuer: GlobalSign Organization Validation CA
+[07] 14:42:01 TLS Key Exchange, Change Cipher Spec
+[08] 14:42:01 TLS Encrypted Handshake Finished
+
+[09] 14:42:01 TLS Application Data (Encrypted HTTP GET /)
+[10] 14:42:02 TLS Application Data (Encrypted HTTP 200 OK + HTML content)
+[11] 14:42:02 TLS Application Data (Encrypted: additional CSS, JS, and image files)
+
+[12] 14:42:10 TCP 192.168.1.20:50322 -> 91.198.174.192:443 [FIN, ACK]
+[13] 14:42:10 TCP 91.198.174.192:443 -> 192.168.1.20:50322 [FIN, ACK]
+[14] 14:42:10 TCP 192.168.1.20:50322 -> 91.198.174.192:443 [ACK]
