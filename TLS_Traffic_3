@@ -1,0 +1,148 @@
+————————————————————————
+1.
+NORMAL NETFLIX TRAFFIC
+WATCHING A MOVIE OR SHOW
+
+[01] DNS Queries (App or Browser Startup)
+
+[01] 20:01:15 DNS Query A www.netflix.com → Response: 52.24.145.20
+[02] 20:01:16 DNS Query A api-global.netflix.com → Response: 52.89.124.120
+[03] 20:01:17 DNS Query A ipv4-c004-fra002-ix.1.nflxvideo.net → Response: 52.93.112.33
+[04–06] TCP Three-Way Handshake to netflix.com
+
+[04] 20:01:17 TCP 192.168.1.20:54321 → 52.24.145.20:443 [SYN]
+[05] 20:01:17 TCP 52.24.145.20:443 → 192.168.1.20:54321 [SYN, ACK]
+[06] 20:01:17 TCP 192.168.1.20:54321 → 52.24.145.20:443 [ACK]
+[07–11] TLS 1.3 Handshake (to www.netflix.com)
+
+[07] 20:01:17 TLS Client Hello — SNI: www.netflix.com
+[08] 20:01:17 TLS Server Hello — ALPN: h2 (HTTP/2)
+[09] 20:01:17 TLS Certificate: CN=*.netflix.com, Issuer=Netflix SubCA
+[10] 20:01:17 TLS Encrypted Extensions, Finished
+[11] 20:01:17 TLS Finished (Client) — Secure connection established
+[12–15] Application Data (Encrypted)
+
+[12] 20:01:18 TLS Application Data — HTTPS GET /browse (Homepage)
+[13] 20:01:19 TLS Application Data — HTTPS POST /api/viewingactivity
+[14] 20:01:19 TLS Application Data — HTTPS GET /title/80100172 (Play Title)
+[16–18] Separate TLS Session to Video CDN (nflxvideo.net)
+
+[16] 20:01:20 TCP 192.168.1.20:54327 → 52.93.112.33:443 [SYN]
+[17] 20:01:20 TCP 52.93.112.33:443 → 192.168.1.20:54327 [SYN, ACK]
+[18] 20:01:20 TCP 192.168.1.20:54327 → 52.93.112.33:443 [ACK]
+[19–23] TLS Handshake to Video CDN
+
+[19] 20:01:20 TLS Client Hello — SNI: ipv4-c004-fra002-ix.1.nflxvideo.net
+[20] 20:01:20 TLS Server Hello — CN: *.nflxvideo.net, ALPN: h2
+[21] 20:01:20 TLS Certificate + Extensions
+[22] 20:01:20 TLS Finished (Server + Client) — Encrypted channel ready
+[23] 20:01:21 TLS Application Data — Encrypted GET /range/0-1048575 (1MB segment)
+[24–30] Video Streaming (Segmented Playback)
+
+[24] 20:01:21 TLS Application Data — Encrypted HTTP 206 Partial Content
+[25] 20:01:22 TLS Application Data — Segment 2 (~1MB)
+[26] 20:01:23 TLS Application Data — Segment 3 (~1MB)
+[27] 20:01:24 TLS Application Data — Segment 4 (~1MB)
+[28] 20:01:25 TLS Application Data — Segment 5 (~1MB)
+[29] 20:01:26 TLS Application Data — Segment 6 (~1MB)
+[30] 20:01:27 TLS Application Data — Segment 7 (~1MB)
+[31–34] API Updates During Playback
+
+[31] 20:01:30 TLS Application Data — POST /api/metrics/watch-progress
+[32] 20:01:35 TLS Application Data — POST /api/viewingactivity/update
+[35–38] Optional Session Reuse
+
+If the connection to nflxvideo.net stays alive, additional segments reuse the existing session.
+If idle >30s or app switches CDN, a new TCP+TLS handshake occurs.
+
+————————————————————————
+1. Windows Software Update Traffic (Windows Update)
+Scenario:
+A Windows PC checks for updates and downloads them from Microsoft’s update servers.
+
+[01] DNS Query for Microsoft Update Servers
+
+[01] 12:00:01 DNS Query A windowsupdate.microsoft.com → Response: 40.91.112.207
+[02] 12:00:01 DNS Query A update.microsoft.com → Response: 40.91.112.180
+[02–04] TCP Handshake to Windows Update Server
+
+[03] 12:00:02 TCP 192.168.1.10:53000 → 40.91.112.207:443 [SYN]
+[04] 12:00:02 TCP 40.91.112.207:443 → 192.168.1.10:53000 [SYN, ACK]
+[05] 12:00:02 TCP 192.168.1.10:53000 → 40.91.112.207:443 [ACK]
+[05–08] TLS Handshake to Windows Update Server
+
+[06] 12:00:02 TLS Client Hello — SNI: windowsupdate.microsoft.com
+[07] 12:00:02 TLS Server Hello — CN: windowsupdate.microsoft.com, ALPN: h2 (HTTP/2)
+[08] 12:00:02 TLS Certificate: CN=windowsupdate.microsoft.com, Issuer=Microsoft Corporation
+[09] 12:00:02 TLS Encrypted Extensions, Finished
+[09–14] HTTP Requests for Update Information (Encrypted)
+
+[10] 12:00:03 TLS Application Data — GET /update/v3/updatecheck
+[11] 12:00:03 TLS Application Data — POST /update/v3/updateinfo
+[12] 12:00:03 TLS Application Data — HTTP 200 OK (Update Available)
+[13] 12:00:04 TLS Application Data — GET /update/v3/updatefile (Start download)
+[14] 12:00:05 TLS Application Data — Encrypted File Download (Size ~100MB)
+[15–17] Software Update Download Segments
+
+Windows updates are typically downloaded in chunks. These might be split across multiple HTTP GET requests.
+
+[15] 12:00:06 TLS Application Data — Segment 1 (~5MB)
+[16] 12:00:07 TLS Application Data — Segment 2 (~5MB)
+[17] 12:00:08 TLS Application Data — Segment 3 (~5MB)
+[18–20] Update Installation and Finalization
+
+[18] 12:00:10 TLS Application Data — POST /update/v3/install
+[19] 12:00:10 TLS Application Data — Encrypted Confirmation of Installation
+[20] 12:00:11 TLS Application Data — HTTP 200 OK (Reboot Required)
+
+-------------------------------------------------------
+
+2. Linux Software Update Traffic (e.g., Ubuntu)
+Scenario:
+A Linux machine (Ubuntu in this case) checks for and installs software updates.
+
+[01] DNS Query for Ubuntu Update Servers
+
+[01] 12:05:10 DNS Query A archive.ubuntu.com → Response: 91.189.91.38
+[02] 12:05:10 DNS Query A security.ubuntu.com → Response: 91.189.88.149
+[02–04] TCP Handshake to Ubuntu Update Server
+
+[03] 12:05:10 TCP 192.168.1.15:56123 → 91.189.91.38:443 [SYN]
+[04] 12:05:10 TCP 91.189.91.38:443 → 192.168.1.15:56123 [SYN, ACK]
+[05] 12:05:10 TCP 192.168.1.15:56123 → 91.189.91.38:443 [ACK]
+[05–08] TLS Handshake to Ubuntu Update Server
+
+[06] 12:05:10 TLS Client Hello — SNI: archive.ubuntu.com
+[07] 12:05:10 TLS Server Hello — CN: archive.ubuntu.com, ALPN: h2 (HTTP/2)
+[08] 12:05:10 TLS Certificate: CN=archive.ubuntu.com, Issuer=Ubuntu SSL CA
+[09] 12:05:10 TLS Encrypted Extensions, Finished
+[09–13] HTTP Requests for Update Metadata (Encrypted)
+
+[10] 12:05:11 TLS Application Data — GET /ubuntu/dists/focal-updates/main/binary-amd64/Packages.gz
+[11] 12:05:11 TLS Application Data — HTTP 200 OK (Packages list)
+[12] 12:05:12 TLS Application Data — GET /ubuntu/dists/focal-security/main/binary-amd64/Packages.gz
+[13] 12:05:12 TLS Application Data — HTTP 200 OK (Security update list)
+[14–16] Download Update Packages (e.g., .deb files)
+
+The update process will download individual .deb packages.
+[14] 12:05:13 TLS Application Data — GET /ubuntu/pool/main/l/linux/linux-image-5.4.0-80-generic_5.4.0-80.90_amd64.deb
+[15] 12:05:14 TLS Application Data — HTTP 200 OK (Package download)
+[16] 12:05:14 TLS Application Data — Segment 1 (~10MB)
+[17–19] Update Installation and Finalization
+
+[17] 12:05:15 TLS Application Data — POST /ubuntu/install
+[18] 12:05:16 TLS Application Data — Encrypted Confirmation of Installation
+[19] 12:05:16 TLS Application Data — HTTP 200 OK (Installation complete, no reboot required)
+
+How to Identify Windows vs. Linux Update Traffic
+
+Windows Update
+Hostnames: windowsupdate.microsoft.com, update.microsoft.com
+SNI: windowsupdate.microsoft.com
+Protocols: HTTPS, often with HTTP/2 for faster transfer (especially with larger updates).
+Traffic: You'll see multiple large segments being transferred (usually around 100 MB or more). You might see encrypted POST requests to the /update endpoints.
+Linux Update (Ubuntu/Debian)
+Hostnames: archive.ubuntu.com, security.ubuntu.com
+SNI: archive.ubuntu.com
+Protocols: HTTPS, commonly HTTP/1.1 or HTTP/2.
+Traffic: You will observe multiple requests for .deb packages, and metadata like Packages.gz files. Updates usually include security patches or regular software upgrades in smaller chunks (compared to Windows).
